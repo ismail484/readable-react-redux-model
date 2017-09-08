@@ -1,0 +1,70 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+  color: #5F5F5F;
+}
+/* Modal */
+newPostTop {
+  background: #fff;
+  padding: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1877E6;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.newPostInputContainer {
+  display: flex;
+  height: 110px;
+  margin: 10px;
+}
+
+.newPostInput {
+  flex: 1;
+  border-radius: 3px;
+  padding: 8px 10px;
+  font-size: 18px;
+  resize: none;
+  border-width: 0;
+}
+
+.darkBtn {
+  background: #4a90e2;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 15px;
+  border-style: none;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #4a90e2;
+  text-decoration: none;
+}
+
+.submitDuckBtn {
+  background: #4a90e2;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 15px;
+  border-style: none;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #4a90e2;
+  margin: 0px auto;
+  width: 150px;
+  text-align: center;
+  display: block;
+}
+
+.submitDuckBtn:disabled {
+  background: #C6C6C6;
+  border: 1px solid #C6C6C6;
+}
