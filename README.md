@@ -5,6 +5,7 @@
 # Description
   
   ### First open [MyReadable](http://localhost:3000/) to discover, how app works .
+  -I use here `redux-model` to add posts .
   - Simply , It acts as a single page application using ReactJs-Redux .
   - the web app is a content and comment web app .
   - the web app allows  Users to be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
