@@ -45,9 +45,9 @@ const modalStyles = {
  
 
   return (
-    <span className='darkBtn' onClick={this.props.openModal}>
+    <span className='darkBtn' onClick={this.props.action.openModal}>
       Add Post
-      <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.closeModal}>
+      <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
               
@@ -66,7 +66,7 @@ const modalStyles = {
           )}
         </select>
              
-          <span onClick={this.props.closeModal} className='pointer'>{'X'}</span>
+          <span onClick={this.props.action.closeModal} className='pointer'>{'X'}</span>
         </div>
    
   <div className='inputField'>
@@ -125,16 +125,16 @@ const mapDispatchToProps = dispatch => ({
     action: bindActionCreators({...modalActionCreators,...categoriesActionCreators,...postsActionCreators}, dispatch)
     })
 
-// const { object, string, func, bool,array } = PropTypes
+ const { object, string, func, bool,array } = PropTypes
    Modal.PropTypes = {
    postBody: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
    isSubmitDisabled: PropTypes.bool.isRequired,
    categories: PropTypes.array.isRequired,
-    action:PropTypes.object.isRequired
-//   closeModal: PropTypes.func.isRequired,
+    action:PropTypes.object.isRequired,
+   closeModal: PropTypes.func.isRequired,
   
-//   openModal: PropTypes.func.isRequired,
+   openModal: PropTypes.func.isRequired,
 //   action:PropTypes.PropTypes.object.isRequired,
 //   //updatePostBody: PropTypes.func.isRequired,
    

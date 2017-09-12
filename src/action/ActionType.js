@@ -1,5 +1,5 @@
 //categories
-const GET_ALL_CATEGORIES='GET_ALL_CATEGORIES'
+export const GET_ALL_CATEGORIES='GET_ALL_CATEGORIES'
 
 // posts
 export const LOAD_POSTS = 'LOAD_POSTS'
