@@ -4,7 +4,11 @@ import {formatPost} from '../../helper/format'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-
+import { getCategories } from '../../action/categoriesAction'
+import { bindActionCreators } from 'redux'
+import * as modalActionCreators from '../../action/modalAction'
+import * as postsActionCreators from '../../action/postsAction'
+import * as categoriesActionCreators from '../../action/categoriesAction'
 
 
 
@@ -19,51 +23,41 @@ const modalStyles = {
   },
 }
 
-const { object, string, func, bool,array } = PropTypes
-Modal.PropTypes = {
-  postBody: string.isRequired,
-  closeModal: func.isRequired,
-  isOpen: bool.isRequired,
-  isSubmitDisabled: bool.isRequired,
-  openModal: func.isRequired,
-  action:PropTypes.object.isRequired,
-  updatePostBody: func.isRequired,
-   categories: array.isRequired,
-   createPost:func.isRequired,
-   //title: string.isRequired,
-   //author: string.isRequired,
-   //post:object.isRequired,
-   // contentLabel: string.isRequired,
-    //postFanout:func.isRequired
 
-} 
 
- export default function Modal (props)  {
+
+ class  Modal extends  React.Component {
+  
+  componentDidMount() {  
+    this.props.action.getCategories()
+  }
+
+  render() { 
 //const { category, title,author, body } = props.post
-  console.log('categories',props.categories)
-  console.log('post',props.post)
+  console.log('categories',this.props.categories)
+  console.log('post',this.props.post)
     function submitPost () {
   //   //props.duckFanout(formatPost(props.postBody))
-     console.log('post',props.postBody)
+     console.log('post',this.props.postBody)
     
  }
     
  
 
   return (
-    <span className='darkBtn' onClick={props.openModal}>
+    <span className='darkBtn' onClick={this.props.openModal}>
       Add Post
-      <ReactModal style={modalStyles} isOpen={props.isOpen} onRequestClose={props.closeModal}>
+      <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
               
            <select className='ui dropdown'
              value=''
                   selected
-                  onChange={e => props.updatePostBody(e.target.value)}
+                  onChange={e => this.props.updatePostBody(e.target.value)}
                   style={{color: '#00b200'}}>
           <option value=''>Select a Category</option>
-          {_.map(props.categories, category => {
+          {_.map(this.props.categories, category => {
 
               return (
                 <option value={category.name} key={category.name}>{category.name}</option>
@@ -72,23 +66,23 @@ Modal.PropTypes = {
           )}
         </select>
              
-          <span onClick={props.closeModal} className='pointer'>{'X'}</span>
+          <span onClick={this.props.closeModal} className='pointer'>{'X'}</span>
         </div>
    
   <div className='inputField'>
   <label>Title</label>
-   <input value={props.title} onChange={submitPost}/>
+   <input value={this.props.title} onChange={submitPost}/>
    </div>
    <div className='inputField'>
    <label>Author</label>
-   <input value={props.title} onChange={submitPost}/>
+   <input value={this.props.title} onChange={submitPost}/>
    </div>
 
         <div className='newPostInputContainer'>
           <textarea
           //when event click inoke the function passing  the value to the function
-            onChange={(e) => props.updatePostBody(e.target.value)}
-            value={props.postBody}
+            onChange={(e) => this.props.updatePostBody(e.target.value)}
+            value={this.props.postBody}
             maxLength={140}
             type='text'
             className='newPostInput'
@@ -96,7 +90,7 @@ Modal.PropTypes = {
         </div>
         <button
           className='submitPostBtn'
-          disabled={props.isSubmitDisabled}
+          disabled={this.props.isSubmitDisabled}
           onClick={submitPost}>
             Send Post
         </button>
@@ -107,3 +101,53 @@ Modal.PropTypes = {
      }
 
 
+ }
+
+ function mapStateToProps (state,ownProps) {
+  const { modalReducer,categoriesReducer,postsReducer} = state
+  const postBodyLength = modalReducer.postBody.length
+   
+  return {
+   
+  postBody: modalReducer.postBody,
+   isOpen: modalReducer.isOpen,
+   isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
+   categories:categoriesReducer.categories,
+   //post: postsReducer.post
+ 
+
+
+  
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+    action: bindActionCreators({...modalActionCreators,...categoriesActionCreators,...postsActionCreators}, dispatch)
+    })
+
+// const { object, string, func, bool,array } = PropTypes
+   Modal.PropTypes = {
+   postBody: PropTypes.string.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+   isSubmitDisabled: PropTypes.bool.isRequired,
+   categories: PropTypes.array.isRequired,
+    action:PropTypes.object.isRequired
+//   closeModal: PropTypes.func.isRequired,
+  
+//   openModal: PropTypes.func.isRequired,
+//   action:PropTypes.PropTypes.object.isRequired,
+//   //updatePostBody: PropTypes.func.isRequired,
+   
+   
+//    //title: string.isRequired,
+//    //author: string.isRequired,
+//    //post:object.isRequired,
+//    // contentLabel: string.isRequired,
+//     //postFanout:func.isRequired
+
+ } 
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Modal)

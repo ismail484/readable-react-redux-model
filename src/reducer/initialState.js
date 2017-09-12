@@ -8,18 +8,18 @@ export default {
 
   categoriesReducer: {
      categories: [
-         {
-        name: 'react',
-        path: 'react'
-      },
-      {
-        name: 'redux',
-        path: 'redux'
-      },
-      {
-        name: 'udacity',
-        path: 'udacity'
-      }
+    //      {
+    //     name: 'react',
+    //     path: 'react'
+    //   },
+    //   {
+    //     name: 'redux',
+    //     path: 'redux'
+    //   },
+    //   {
+    //     name: 'udacity',
+    //     path: 'udacity'
+    //   }
      ]
     },
 
