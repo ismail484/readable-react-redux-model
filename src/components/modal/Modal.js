@@ -52,7 +52,7 @@ Modal.PropTypes = {
 
   return (
     <span className='darkBtn' onClick={props.openModal}>
-      Post
+      Add Post
       <ReactModal style={modalStyles} isOpen={props.isOpen} onRequestClose={props.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
@@ -98,7 +98,7 @@ Modal.PropTypes = {
           className='submitPostBtn'
           disabled={props.isSubmitDisabled}
           onClick={submitPost}>
-            Add Post
+            Send Post
         </button>
       </ReactModal>
     </span>
