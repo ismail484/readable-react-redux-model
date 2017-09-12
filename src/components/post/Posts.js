@@ -1,16 +1,19 @@
 import React from 'react';
 import ModalContainer from '../modal/ModalContainer'
+import PostsList from './PostsList'
 
 const Posts = () => {
     return (
-        <div>
-           Hallo
-
-           <ul>
-               <li><ModalContainer /></li>
-        </ul>
-            
+     <div>
+        <div >           
+               <ModalContainer />
         </div>
+       
+        <div >           
+               <PostsList />
+        </div>
+    </div>
+        
     );
 };
 

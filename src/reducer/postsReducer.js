@@ -3,54 +3,59 @@ import initialState from './initialState'
 
 
 
-export default function postsReducer (state = initialState.postsReducer, action) {
+//initialState.posts
+export default function postsReducer (state =initialState.postsReducer,action){
+  //const { posts,id, timestamp, title,body,author,category,voteScore,deleted } = action
+ 
+    //new state
   switch (action.type) {
-    case ActionType.FETCHING_POST :
-      return {
-        ...state,
-        isFetching: true,
-      }
+
+    case ActionType.LOAD_POSTS :
+         
+      return Object.assign([], state, action.posts)
+        
     case ActionType.ADD_POST :
-    case ActionType.FETCHING_POST_SUCCESS :
+    
+      return [
+        ...state.filter(post => post.id !== action.post.id),
+        Object.assign({}, action.post)
+      ]
+         
+ case ActionType.EDIT_POST :
+      return [
+        ...state.filter(post => post.id !== action.post.id),
+        Object.assign({}, action.post)
+      ]
+
+
+case ActionType.DELETE_POST :
+      const newState = Object.assign([], state)
+      const indexOfPostToDelete = state.findIndex(post => post.id == action.post.id)
+      newState.splice(indexOfPostToDelete, 1);
+      return newState
+
+
+case ActionType.UP_VOTE_POST:
+    const newState1 = Object.assign([], state)
+    const indexOfPostUp = state.findIndex(post => post.id == action.post.id)
+    newState1[indexOfPostUp].voteScore=state[indexOfPostUp]+1
+    return newState1
+    
+case ActionType.DOWN_VOTE_POST:
+    const newState2 = Object.assign([], state)
+    const indexOfPostDown = state.findIndex(post => post.id == action.post.id)
+    newState2[indexOfPostDown].voteScore=state[indexOfPostDown]+1
+    return newState2
+
+case ActionType.GET_POSTS_FOR_CATEGORY:
       return {
         ...state,
-        error: '',
-        isFetching: false,
-        //add specific post to post state in redux
-        [action.post.postId]: action.post,
+        posts: action.posts
       }
-    case ActionType.FETCHING_POST_ERROR :
-      return {
-        ...state,
-        isFetching: false,
-        error: action.error,
-      }
-    case ActionType.REMOVE_FETCHING :
-      return {
-        ...state,
-        error: '',
-        isFetching: false,
-      }
-    case ActionType.ADD_MULTIPLE_POSTS :
-      return {
-        ...state,
-        ...action.posts,
-      }
-    default :
+
+
+default :
       return state
   }
 }
 
-// export function duckFanout (duck) {
-//   return function (dispatch, getState) {
-//     //const uid = getState().users.authedId
-//     saveDuck(duck)
-//       .then((duckWithID) => {
-//         dispatch(addDuck(duckWithID))
-//         dispatch(closeModal())
-//       })
-//       .catch((err) => {
-//         console.warn('Error in duckFanout', err)
-//       })
-//   }
-// }

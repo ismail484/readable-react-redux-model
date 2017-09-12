@@ -1,15 +1,20 @@
 import {combineReducers} from 'redux'
 import modalReducer from './modalReducer'
 import postsReducer from './postsReducer'
-import feedReducer from './feedReducer'
+import commentsReducer from './commentsReducer'
+import categoriesReducer from './categoriesReducer'
 
  
 
 const rootReducer= combineReducers({
     
-    feedReducer,
+    //feedReducer,
     modalReducer,
-    postsReducer
+    postsReducer,
+    categoriesReducer,
+    commentsReducer
+    //sortedPostsReducer
+   // listenerReducer
     
       
 })
