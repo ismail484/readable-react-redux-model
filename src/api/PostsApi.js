@@ -1,7 +1,21 @@
+//const api = process.env.REACT_APP_READABLE_API_URL || 'http://localhost:5001'
+
+// Get token from localStorage
+let token = localStorage.token
+
+if (!token) 
+  token = localStorage.token = Math.random().toString(36).substr(-8)
+
+const headers = {
+  'Accept': 'application/json',
+  'Authorization': token
+}
+
 class PostsApi {
 
   static getAllPosts() {
-    return fetch('http://localhost:5001/posts').then(response => {
+    return fetch('http://localhost:5001/posts',{headers})
+    .then(response => {
       return response.json();
     }).catch(error => {
       return error;
@@ -10,15 +24,8 @@ class PostsApi {
 
   
 static getPost(id) {
-    const request = new Request(`http://localhost:5001/posts/${id}`, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }), 
-     // body: JSON.stringify({post: post})
-    });
-
-
+    const request = new Request(`http://localhost:5001/posts/${id}`, 
+    {headers});
     return fetch(request).then(response => {
       return response.json();
     }).catch(error => {
@@ -31,11 +38,12 @@ static getPost(id) {
   static updatePost(post) {
     const request = new Request(`http://localhost:5001/posts/${post.id}`, {
       method: 'PUT',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }), 
+      headers: {
+      ...headers,
+      'Content-Type': 'application/json'},
       body: JSON.stringify({post: post})
-    });
+      })
+    
 
 
     return fetch(request).then(response => {
@@ -48,11 +56,11 @@ static getPost(id) {
   static createPost(post) {
     const request = new Request('http://localhost:5001/posts', {
       method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }), 
+      headers: {
+      ...headers,
+      'Content-Type': 'application/json'},
       body: JSON.stringify({post: post})
-    });
+      })
 
 
     return fetch(request).then(response => {
@@ -64,7 +72,7 @@ static getPost(id) {
 
   static deletePost(id) {
     const request = new Request(`http://localhost:5001/posts/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',headers
     });
 
     return fetch(request).then(response => {
