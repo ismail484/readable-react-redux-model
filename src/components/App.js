@@ -25,6 +25,8 @@ const App = () => {
                         <Route path="/posts" component={Posts} />
                         <Route path="/about" component={About} />
                         <Route exact path ='/:category/:id' component={PostDetail} />
+                        <Route exact path ='/:category' component={Posts} />
+          
                     </Switch>
 
                 </div>

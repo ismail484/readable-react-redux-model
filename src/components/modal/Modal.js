@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { getCategories } from '../../action/categoriesAction'
+import { addPost } from '../../action/postsAction'
 import { bindActionCreators } from 'redux'
 import * as modalActionCreators from '../../action/modalAction'
 import * as postsActionCreators from '../../action/postsAction'
@@ -30,13 +31,22 @@ const modalStyles = {
   
   componentDidMount() {  
     this.props.action.getCategories()
+    this.props.action.addPost()
   }
 
   render() { 
-//const { category, title,author, body } = props.post
+//const { category, title,author, body } = this.props.post
+
   console.log('categories',this.props.categories)
   console.log('post',this.props.post)
     function submitPost () {
+  //   //props.duckFanout(formatPost(props.postBody))
+     console.log('post',this.props.postBody)
+    
+ }
+  function addPostCategory(category) {
+    // this.props.post.category=category
+    // this.props.action.addPost(this.props.post.category)
   //   //props.duckFanout(formatPost(props.postBody))
      console.log('post',this.props.postBody)
     
@@ -54,7 +64,7 @@ const modalStyles = {
            <select className='ui dropdown'
              value=''
                   selected
-                  onChange={e => this.props.updatePostBody(e.target.value)}
+                  onChange={e => this.props.addPostCategory(e.target.value)}
                   style={{color: '#00b200'}}>
           <option value=''>Select a Category</option>
           {_.map(this.props.categories, category => {
@@ -71,7 +81,7 @@ const modalStyles = {
    
   <div className='inputField'>
   <label>Title</label>
-   <input value={this.props.title} onChange={submitPost}/>
+   <input value={this.props.title} onChange={this.props.action.submitPost}/>
    </div>
    <div className='inputField'>
    <label>Author</label>
@@ -113,7 +123,7 @@ const modalStyles = {
    isOpen: modalReducer.isOpen,
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
-   //post: postsReducer.post
+   post: postsReducer.post
  
 
 
@@ -133,7 +143,7 @@ const mapDispatchToProps = dispatch => ({
    categories: PropTypes.array.isRequired,
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
-  
+  post:PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
 //   action:PropTypes.PropTypes.object.isRequired,
 //   //updatePostBody: PropTypes.func.isRequired,

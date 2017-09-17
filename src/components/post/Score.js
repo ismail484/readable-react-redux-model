@@ -1,3 +1,3 @@
 import React from 'react'
 
-export const Points = (props) => <div className="Points">{props.point}</div>
+export const Score = (props) => <div className="Points">{props.voteScore}</div>

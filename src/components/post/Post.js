@@ -8,7 +8,8 @@ import { Score } from './Score'
 import { Voting } from './Voting'
 import { Edit } from './Edit'
 import { Delete } from './Delete'
-
+import { Count } from './Count'
+import {getAllComments} from '../../action/commentsAction'
 class Post extends Component {
   state = {
     voteScore: 0
@@ -33,10 +34,18 @@ class Post extends Component {
   }
 
   componentDidMount() {
+        this.props.getAllComments('posts', this.props.post.id)
+
     const { voteScore } = this.props.post
     this.setState({
       voteScore: voteScore
     })
+
+    const posts = this.props.posts
+    const index= posts.findIndex(post => post.id === this.props.post.id)
+    const count = posts[index].comments 
+                  ? posts[index].comments.length
+                  : '&'
   }
 
   render() {
@@ -49,7 +58,7 @@ class Post extends Component {
           post={this.props.post} />
         <div className="Post-Info">
           <Author author={author} />
-          <Comments />
+          <Count count={this.count} />
           <Score voteScore={voteScore} />
           <Voting 
             id={id} 
@@ -63,12 +72,21 @@ class Post extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  const{postsReducer}=state
+  return {
+    posts: postsReducer.posts
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     deletePost: (id) => dispatch(deletePost(id)),
     upVote: (id) => dispatch(upVotePost(id)),
-    downVote: (id) => dispatch(downVotePost(id))
+    downVote: (id) => dispatch(downVotePost(id)),
+    getAllComments: (from, id) => dispatch(getAllComments(from, id))
+
   }
 }
 
-export default connect(null, mapDispatchToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(Post)

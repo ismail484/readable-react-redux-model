@@ -2,8 +2,8 @@
 export const GET_ALL_CATEGORIES='GET_ALL_CATEGORIES'
 
 // posts
-export const LOAD_POSTS = 'LOAD_POSTS'
-export const LOAD_POST = 'LOAD_POST'
+export const LOAD_POSTS = 'GET_POSTS'
+export const LOAD_POST = 'GET_POST'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
@@ -23,6 +23,8 @@ export const SORTED_POSTS = 'SORTED_POSTS'
 export const SORTED_COMMENTS = 'SORTED_COMMENTS'
 
 //COMMENTS
+export const GET_All_COMMENTS = 'GET_All_COMMENTS'
+
 export const LOAD_COMMENTS_FOR_POST = 'LOAD_COMMENTS_FOR_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'

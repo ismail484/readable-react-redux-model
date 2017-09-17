@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadPosts } from '../../action/postsAction'
+import { getPosts } from '../../action/postsAction'
 import { Voting } from './Voting'
 import * as ActionType from '../../action/ActionType'
 
@@ -10,30 +10,30 @@ import Post from './Post'
 class PostsList extends Component {
 
   componentDidMount() {
-    this.props.loadPosts()
+    this.props.getPosts()
+    
   }
 
   render() {
     const { posts, match } = this.props
-    console.log('props',posts)
-    const postsList = posts.filter(post => {
+    console.log('posts are',posts)
+    const filteredPosts = posts.filter(post => {
       if(match.params.category) {
         return !post.deleted && post.category === match.params.category
       } else {
         return !post.deleted 
       }
     })
-    .map(post => (<li key={post.id}><Post post={post} /></li>))
+    let postList
+    if (filteredPosts.length > 0) {
+      postList = filteredPosts.map(post => (<li key={post.id}><Post post={post} /></li>))
+    }
 
     return(
       <div className="Posts">
-        {postsList.length > 0
-        ? (
-          <ul>
-            {postsList}
-          </ul>
-        )
-        : (<div>Not Found</div>)
+        {filteredPosts.length > 0
+        ? postList.length > 0 ? (<ul>{postList}</ul>) : (<div>Not Found</div>)
+        : (<h1>...</h1>)
         }
       </div>
     )
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadPosts: (data) => dispatch(loadPosts(data))
+    getPosts: (data) => dispatch(getPosts(data))
   }
 }
 

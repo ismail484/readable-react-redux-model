@@ -6,6 +6,15 @@ import CommentsApi from '../api/CommentsApi'
 // comments
 //wrapping all actions in action creators functions
 //it takes an object (all payloads to setup the event)
+
+export function getAllCommentstSuccess (id,comments) {
+  return {
+    type: ActionType.GET_All_COMMENTS,
+    id,
+    comments
+  }
+}
+
 export function loadCommentsForPostSuccess (id) {
   return {
     type: ActionType.LOAD_COMMENTS_FOR_POST,
@@ -48,6 +57,24 @@ export function downVoteCommentSuccess (id) {
     id,
   }
 }
+
+export function getAllComments(from = 'posts', id) {
+  // make async call to api, handle promise, dispatch action when promise is resolved
+  return function(dispatch) {
+    return CommentsApi.getAllComments().then(comments => {
+     if(from === 'posts') {
+        dispatch(getAllCommentstSuccess(comments))
+      }
+      else {
+              dispatch(loadCommentsForPostSuccess(comments))
+      }
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+
 
 export function loadcommentsForPost(postId) {
   // make async call to api, handle promise, dispatch action when promise is resolved

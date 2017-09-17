@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getCategories } from '../action/categoriesAction'
+import { fetchCategories } from '../actions'
+import { getCategories } from '../../action/categoriesAction'
+
 
 class Categories extends Component {
   
@@ -11,7 +13,7 @@ class Categories extends Component {
 
   render() {    
     const { categories } = this.props
-    const categories = categories.map((item, index) => {
+    const list = categories.map((item, index) => {
       return (
         <li key={index}>
           <Link to={`/${item.name}`}>{item.name}</Link>
@@ -23,7 +25,7 @@ class Categories extends Component {
       <div className="Categories">
         <ul className="Categories-List">
           <All />
-          {categories}
+          {list}
         </ul>
       </div>
     )
@@ -38,9 +40,10 @@ const All = () => {
   )
 }
 
-const mapStateToProps = ({ categories }) => {
+const mapStateToProps = (state) => {
+  const{categoriesReducer}=state
   return {
-    categories: categories
+    categories: categoriesReducer.categories
   }
 }
 
