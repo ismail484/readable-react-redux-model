@@ -42,7 +42,7 @@ class Post extends Component {
     })
 
     const posts = this.props.posts
-    const index= posts.findIndex(post => post.id === this.props.post.id)
+    const index= posts.findIndex(post => post.id === this.id)
     const count = posts[index].comments 
                   ? posts[index].comments.length
                   : '&'

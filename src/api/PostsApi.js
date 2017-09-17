@@ -48,17 +48,12 @@ export const getPost = (id) => {
     .then(response => response.json())
 }
 
-export const addPost=(post)=>{
- return fetch(`${api}/posts/${post}`,{
-    method: 'POST',
-    headers,
-      // ...headers,
-      // 'Content-Type': 'application/json'
-    body: JSON.stringify({
-      post: post
-    })
-  })
-}
+export const addPost = (post) =>
+  fetch(`${api}/posts`, {
+   method: 'POST',
+   headers: headers,
+   body: JSON.stringify(post)
+  }).then(res => res.json())
 
 
 /* createPost(post) {

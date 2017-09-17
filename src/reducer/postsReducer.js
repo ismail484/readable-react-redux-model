@@ -14,14 +14,17 @@ export default function postsReducer (state =initialState.postsReducer,action){
 
     case ActionType.GET_POSTS :
          
-      return Object.assign([], state, action.posts)
+       return {
+        ...state,
+        posts: action.posts
+      }
         
     case ActionType.ADD_POST :
     
-      return [
-        ...state.filter(post => post.id !== action.post.id),
-        Object.assign({}, action.post)
-      ]
+      return {
+        ...state,
+        post:action.post
+      }
          
  case ActionType.EDIT_POST :
       return [

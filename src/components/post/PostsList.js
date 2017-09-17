@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import { getPosts } from '../../action/postsAction'
 import { Voting } from './Voting'
 import * as ActionType from '../../action/ActionType'
-
-
 import Post from './Post'
 
 class PostsList extends Component {
@@ -17,7 +15,7 @@ class PostsList extends Component {
   render() {
     const { posts, match } = this.props
     console.log('posts are',posts)
-    const filteredPosts = posts.filter(post => {
+    let filteredPosts = posts.filter(post => {
       if(match.params.category) {
         return !post.deleted && post.category === match.params.category
       } else {
