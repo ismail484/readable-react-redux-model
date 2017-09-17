@@ -20,14 +20,14 @@ class Post extends Component {
   }
 
   onClickUpVote = (id) => {
-    this.props.upVote(id)
+    this.props.upVotePost(id)
     this.setState({
       voteScore: this.state.voteScore + 1
     })
   }
 
   onClickDownVote = (id) => {
-    this.props.downVote(id)
+    this.props.downVotePost(id)
     this.setState({
       voteScore: this.state.voteScore - 1
     })
@@ -82,8 +82,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     deletePost: (id) => dispatch(deletePost(id)),
-    upVote: (id) => dispatch(upVotePost(id)),
-    downVote: (id) => dispatch(downVotePost(id)),
+    upVotePost: (id) => dispatch(upVotePost(id)),
+    downVotePost: (id) => dispatch(downVotePost(id)),
     getAllComments: (from, id) => dispatch(getAllComments(from, id))
 
   }

@@ -3,6 +3,8 @@ import initialState from './initialState'
 
 
 
+
+
 //initialState.posts
 export default function postsReducer (state =initialState.postsReducer,action){
   //const { posts,id, timestamp, title,body,author,category,voteScore,deleted } = action
@@ -10,7 +12,7 @@ export default function postsReducer (state =initialState.postsReducer,action){
     //new state
   switch (action.type) {
 
-    case ActionType.LOAD_POSTS :
+    case ActionType.GET_POSTS :
          
       return Object.assign([], state, action.posts)
         
@@ -26,6 +28,16 @@ export default function postsReducer (state =initialState.postsReducer,action){
         ...state.filter(post => post.id !== action.post.id),
         Object.assign({}, action.post)
       ]
+
+
+
+    case ActionType.GET_POST :
+      action.post.comments = action.comments
+      return {
+        ...state, 
+        post: action.post
+      }
+
 
 
 case ActionType.DELETE_POST :

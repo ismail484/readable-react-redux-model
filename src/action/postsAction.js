@@ -106,7 +106,7 @@ export function upVotePostSuccess (id) {
    }
  }
 
-  export function createPost(post) {
+  export function addPost(post) {
    return function (dispatch) {
      return PostsApi.addPost(post).then(responsePost => {
        dispatch(addPostSuccess(responsePost));
