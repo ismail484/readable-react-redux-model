@@ -24,7 +24,7 @@ class PostsList extends Component {
     })
     let postList
     if (filteredPosts.length > 0) {
-      postList = filteredPosts.map(post => (<li key={post.id}><Post post={post} /></li>))
+      postList = filteredPosts.map((post,id) => (<li key={id}><Post post={post} /></li>))
     }
 
     return(

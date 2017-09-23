@@ -42,6 +42,8 @@ state = {
     body: ''
   }
 
+   reset= (timestamp,title,category,author,body)=>this.setState({title: '',category:'',author:'',body:''})
+
 
 onPostClick() {
     const { title, category, author, body } = this.state
@@ -55,6 +57,7 @@ onPostClick() {
     }
     
     this.props.action.addPost(newPost)
+  this.reset()
     this.props.action.closeModal()
   }
 

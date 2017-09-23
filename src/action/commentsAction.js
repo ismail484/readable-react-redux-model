@@ -58,16 +58,14 @@ export function downVoteCommentSuccess (id) {
   }
 }
 
-export function getAllComments(from = 'posts', id) {
+export function getAllComments(id) {
   // make async call to api, handle promise, dispatch action when promise is resolved
   return function(dispatch) {
     return CommentsApi.getAllComments().then(comments => {
-     if(from === 'posts') {
+  
         dispatch(getAllCommentstSuccess(comments))
-      }
-      else {
-              dispatch(loadCommentsForPostSuccess(comments))
-      }
+
+     
     }).catch(error => {
       throw(error);
     });

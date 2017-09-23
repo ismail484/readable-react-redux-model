@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCategories } from '../actions'
-import { getCategories } from '../../action/categoriesAction'
+import { getCategories } from '../action/categoriesAction'
 
 
 class Categories extends Component {
@@ -35,7 +34,7 @@ class Categories extends Component {
 const All = () => {
   return(
     <li key='All'>
-      <Link to='/'>All</Link>
+      <Link to='/posts'>All</Link>
     </li>
   )
 }
