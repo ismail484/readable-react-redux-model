@@ -7,6 +7,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import HeaderNavContainer from './landing/HeaderNavContainer'
 import About from './About'
 import PostDetail from './post/PostDetails'
+import PostsList from './post/PostsList'
 
 
 const history = createBrowserHistory();
@@ -23,6 +24,7 @@ const App = () => {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/posts" component={Posts} />
+                        <Route exact path ='/:category' component={PostsList} />
                         <Route path="/about" component={About} />
                         <Route exact path ='/:category/:id' component={PostDetail} />
           

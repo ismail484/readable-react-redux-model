@@ -40,12 +40,6 @@ class Post extends Component {
     this.setState({
       voteScore: voteScore
     })
-
-    const posts = this.props.posts
-    const index= posts.findIndex(post => post.id === this.id)
-    const count = posts[index].comments 
-                  ? posts[index].comments.length
-                  : '&'
   }
 
   render() {

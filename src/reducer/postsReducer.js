@@ -13,10 +13,11 @@ export default function postsReducer (state =initialState.postsReducer,action){
   switch (action.type) {
 
     case ActionType.GET_POSTS :
+    action.post.comments = action.comments
          
        return {
         ...state,
-        posts: action.posts
+         posts: [...initialState.postsReducer.posts, action.post]
       }
         
     case ActionType.ADD_POST :

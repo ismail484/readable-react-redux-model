@@ -8,18 +8,23 @@ import * as CommentsApi from '../api/CommentsApi';
 //wrapping all actions in action creators functions
 //it takes an object (all payloads to setup the event)
 //  /posts
+
+//delete /post:id
+export function getPostsSuccess(post,comments) {
+  return {
+     type: ActionType.GET_POSTS,
+     post,
+     comments
+   }
+ }
+
 export const getPosts = () => dispatch => (
   PostsApi.getAllPosts()
     .then(posts => {
       posts.map(post => {
         CommentsApi.getAllComments(post.id)
           .then(comments => {
-            dispatch({
-              type: 'GET_POSTS',
-              //ActionType.GET_POST''S,
-              post,
-              comments
-            })
+            dispatch(getPostsSuccess(post,comments))
           })
       })
     })
