@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux'
 import * as modalActionCreators from '../../action/modalAction'
 import * as postsActionCreators from '../../action/postsAction'
 import * as categoriesActionCreators from '../../action/categoriesAction'
+import uuidv1 from 'uuid/v1'
 
 
 
@@ -31,29 +32,56 @@ const modalStyles = {
   
   componentDidMount() {  
     this.props.action.getCategories()
-    this.props.action.addPost()
+    //this.props.action.addPost()
   }
 
+state = {
+    title: '',
+    category: '',
+    author: '',
+    body: ''
+  }
+
+
+onPostClick() {
+    const { title, category, author, body } = this.state
+    const newPost = {
+      id: uuidv1(),
+      timestamp: Date.now(),
+      title,
+      category,
+      author,
+      body
+    }
+    
+    this.props.action.addPost(newPost)
+    this.props.action.closeModal()
+  }
+
+  onTitleChange(e) {
+    this.setState({ title: e.target.value })
+  }
+
+  onAuthorChange(e) {
+    this.setState({ author: e.target.value })
+  }
+
+  onBodyChange(e) {
+    this.setState({ body: e.target.value })
+  }
+
+  onCategoryChange = (e) => {
+    this.setState({
+      category: e.target.value
+    })
+    
+  }
+
+
+
+
   render() { 
-//const { category, title,author, body } = this.props.post
-
-  console.log('categories',this.props.categories)
-  console.log('post',this.props.post)
-    function submitPost () {
-  //   //props.duckFanout(formatPost(props.postBody))
-     console.log('post',this.props.postBody)
-    
- }
-  function addPostCategory(category) {
-    // this.props.post.category=category
-    // this.props.action.addPost(this.props.post.category)
-  //   //props.duckFanout(formatPost(props.postBody))
-     console.log('post',this.props.postBody)
-    
- }
-    
- 
-
+   console.log('categories',this.props.categories)
   return (
     <span className='darkBtn' onClick={this.props.action.openModal}>
       Add Post
@@ -62,9 +90,9 @@ const modalStyles = {
           <span>{'Compose new Post'}</span>
               
            <select className='ui dropdown'
-             value=''
+             value={this.state.category}
                   selected
-                  onChange={e => this.props.addPostCategory(e.target.value)}
+                  onChange={this.onCategoryChange}
                   style={{color: '#00b200'}}>
           <option value=''>Select a Category</option>
           {_.map(this.props.categories, category => {
@@ -81,18 +109,22 @@ const modalStyles = {
    
   <div className='inputField'>
   <label>Title</label>
-   <input value={this.props.title} onChange={this.props.action.submitPost}/>
+   <input  value={this.state.title}
+           onChange={(e) => this.onTitleChange(e)}
+    />
    </div>
    <div className='inputField'>
    <label>Author</label>
-   <input value={this.props.title} onChange={submitPost}/>
+   <input value={this.state.author}  
+          onChange={(e) => this.onAuthorChange(e)}
+    />
    </div>
 
         <div className='newPostInputContainer'>
           <textarea
           //when event click inoke the function passing  the value to the function
-            onChange={(e) => this.props.updatePostBody(e.target.value)}
-            value={this.props.postBody}
+            onChange={(e) => this.onBodyChange(e)}
+            value={this.state.body}
             maxLength={140}
             type='text'
             className='newPostInput'
@@ -100,8 +132,9 @@ const modalStyles = {
         </div>
         <button
           className='submitPostBtn'
-          disabled={this.props.isSubmitDisabled}
-          onClick={submitPost}>
+          
+          onClick={this.onPostClick.bind(this)}
+          >
             Send Post
         </button>
       </ReactModal>
@@ -119,11 +152,11 @@ const modalStyles = {
    
   return {
    
-  postBody: modalReducer.postBody,
+  //postBody: modalReducer.postBody,
    isOpen: modalReducer.isOpen,
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
-   post: postsReducer.post
+   //post: postsReducer.post
  
 
 
@@ -143,7 +176,7 @@ const mapDispatchToProps = dispatch => ({
    categories: PropTypes.array.isRequired,
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
-  post:PropTypes.object.isRequired,
+ // post:PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
 //   action:PropTypes.PropTypes.object.isRequired,
 //   //updatePostBody: PropTypes.func.isRequired,

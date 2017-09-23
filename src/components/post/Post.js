@@ -45,6 +45,11 @@ class Post extends Component {
   render() {
     const { body, title, author, id } = this.props.post
     const { voteScore } = this.state
+    const posts = this.props.posts
+    const index= posts.findIndex(post => post.id === id)
+    const count = posts[index].comments 
+                  ? posts[index].comments.length
+                  : '&'
 
     return(  
       <div className="Post">
