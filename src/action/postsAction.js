@@ -51,6 +51,47 @@ export function getPostSuccess(post,comments) {
 
 
 
+//add post
+ export function addPostSuccess (post) {
+   return {
+     type: ActionType.ADD_POST,
+     post,
+   }
+ }
+
+  export function addPost(post) {
+   return function (dispatch) {
+     return PostsApi.addPost(post).then(responsePost => {
+       dispatch(addPostSuccess(responsePost));
+       return responsePost;
+     }).catch(error => {
+       throw(error);
+     });
+   };
+ }
+
+
+//edit post
+ export function editPostSuccess (post,id) {
+   return {
+     type: ActionType.Edit_POST,
+     post,
+     id
+   }
+ }
+
+  export function editPost(post,id) {
+   return function (dispatch) {
+     return PostsApi.editPost(post,id).then(responsePost => {
+       dispatch(editPostSuccess(responsePost));
+       return responsePost;
+     }).catch(error => {
+       throw(error);
+     });
+   };
+ }
+
+
 
 //delete /post:id
 export function deletePostSuccess (id) {
@@ -110,23 +151,6 @@ export function upVotePostSuccess (id) {
 
 
 
-//add post
- export function addPostSuccess (post) {
-   return {
-     type: ActionType.ADD_POST,
-     post,
-   }
- }
 
-  export function addPost(post) {
-   return function (dispatch) {
-     return PostsApi.addPost(post).then(responsePost => {
-       dispatch(addPostSuccess(responsePost));
-       return responsePost;
-     }).catch(error => {
-       throw(error);
-     });
-   };
- }
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getPost } from '../action/postsAction'
+import { Link } from 'react-router-dom'
 
 class PostDetail extends Component {
   
@@ -10,6 +11,7 @@ class PostDetail extends Component {
   }
 
   render() {
+    console.log('post is',this.props.post)
     const { id } = this.props.match.params
     const { author, body, category, title, voteScore } = this.props.post
     let commentList = null
@@ -21,12 +23,13 @@ class PostDetail extends Component {
 
     return(
       <div>
-        <p>{author}</p>
-        <p>{body}</p>
-        <p>{category}</p>
-        <p>{title}</p>
-        <p>{voteScore}</p>
-        <ul>{commentList}</ul>
+        <p>Author : {author}</p>
+        <p> Body: {body}</p>
+        <p>Category {category}</p>
+        <p>title {title}</p>
+        <p>VoteScore: {voteScore}</p>
+        <ul>Comments {commentList}</ul>
+        <Link to={'/posts'}>Back to All Posts</Link>
       </div>
     )
   }

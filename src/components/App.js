@@ -17,7 +17,7 @@ const history = createBrowserHistory();
 
 class App extends Component {
 render(){
-    
+
     return (
         <div >
             <Router history={history}>
@@ -26,9 +26,9 @@ render(){
                     
                     <Switch>
                         <Route exact path="/" component={Home} />
+                         <Route path="/about" component={About} />
                         <Route path="/posts" component={Posts} />
                         <Route exact path ='/:category' component={PostsList} />
-                        <Route path="/about" component={About} />
                         <Route exact path ='/:category/:id' component={PostDetail} />
                        
           

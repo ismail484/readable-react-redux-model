@@ -28,6 +28,16 @@ export const deletePost = (id) => {
   })
 }
 
+// DELETE /posts/:id
+export const editPost = (post,id) => {
+  return fetch(`${api}/posts/${id}`, { 
+    method: 'PUT',
+    headers 
+  })
+}
+
+
+
 // POST /posts/:id
 export const votePost = (id, option) => {
   return fetch(`${api}/posts/${id}`, {
@@ -42,7 +52,7 @@ export const votePost = (id, option) => {
 }
 
 
-// GET /posts/:id
+// Post /posts/:id
 export const getPost = (id) => {
   return fetch(`${api}/posts/${id}`, { headers })
     .then(response => response.json())

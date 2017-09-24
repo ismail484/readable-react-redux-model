@@ -17,9 +17,11 @@ class Posts extends Component {
 
   render() {
       const {match} = this.props
-    let sideNavClass = ['Side-Nav', 'Side-Nav-Hide']
+      let sideNavClass = ['Side-Nav', 'Side-Nav-Hide']
+    let postsClass = ['Post-Container']
     if (this.state.hamburgerClicked) {
       sideNavClass = ['Side-Nav', 'Side-Nav-Show']
+      postsClass = ['Post-Container-Show']
     }
     
     return (
@@ -30,6 +32,7 @@ class Posts extends Component {
         <div className="Container">
           <SideNav 
             sideNavClass={sideNavClass}/>
+            <div className={postsClass.join(' ')}>
 
         <div >
                <Modal />
@@ -40,7 +43,7 @@ class Posts extends Component {
         </div>
      </div>
     </div>
-
+</div>
     )
 }
 }
