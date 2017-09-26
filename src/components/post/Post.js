@@ -11,6 +11,7 @@ import { Delete } from './Delete'
 import { Count } from './Count'
 import {getAllComments} from '../../action/commentsAction'
 import Body from './Body'
+import EditModal from '../modal/EditModal'
 
 class Post extends Component {
   state = {
@@ -19,6 +20,7 @@ class Post extends Component {
 
   onClickEdit = (post,id) => {
     this.props.editPost(post,id)
+    return(<EditModal post={this.props.post}/>)
   }
 
   onClickDelete = (id) => {

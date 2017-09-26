@@ -11,7 +11,6 @@ import * as modalActionCreators from '../../action/modalAction'
 import * as postsActionCreators from '../../action/postsAction'
 import * as categoriesActionCreators from '../../action/categoriesAction'
 import uuidv1 from 'uuid/v1'
-import toastr from 'toastr'
 
 
 
@@ -29,14 +28,14 @@ const modalStyles = {
 
 
 
- class  Modal extends  React.Component {
+ class  EditModal extends  React.Component {
   
   componentDidMount() { 
- 
+    const { id } = this.props.match.params
+    this.props.action.getPost(id)
     this.props.action.getCategories();
-    function getPostsAgain() { 
-    return  this.props.action.getPosts()
-    }
+   
+    
   }
 
 state = {
@@ -44,51 +43,30 @@ state = {
     category: '',
     author: '',
     body: '',
-    valid:false,
-    success:false,
+    id:''
   }
- 
-  // reset= (timestamp,title,category,author,body)=>this.setState({title: '',category:'',author:'',body:''})
+
+   reset= (timestamp,title,category,author,body)=>this.setState({title: '',category:'',author:'',body:''})
 
 
 onPostClick() {
-  const { title, category, author, body } = this.state
-
-   if(title&&category&&author&&body){
-  
-     const newPost = {
-       id: uuidv1(),
-       timestamp: Date.now(),
+  var self=this
+    const { title, category, author, body,id } = self.state
+    const post = {
+      id,
+      timestamp: Date.now(),
       title,
       category,
       author,
       body
-     }
-
-  this.props.action.addPost(newPost).then(()=>this.setState({
-        title: '',
-        category:'',
-        author:'',
-        body:'',
-        success:true,
-        valid:true
-   })).then(() =>{ toastr.success('Post saved')
-                    }).catch(error => {
-                toastr.error(error);
-            }); 
- }else{
-   this.setState({
-       
-    valid:false,
-    success :false
-   })
-
- }
+    }
+    
+  this.props.action.editPost(post,id)
   //self.props.action.getPosts()
-  // this.props.action.getPosts()
+   //this.props.action.getPosts()
    // self.componentDidMount.getPostsAgain()
-  //this.reset()
-    this.props.action.closeModal()
+  self.reset()
+    self.props.action.closeModal()
   }
 
   onTitleChange(e) {
@@ -114,12 +92,17 @@ onPostClick() {
 
 
   render() { 
+      const {  id,author, body, category, title, voteScore } = this.props.post
+//       this.setState{{
+//         id:id ,    
+//     title: title,
+//     category: category,
+//     author: author,
+//     body: body,
+//   }}
    console.log('categories',this.props.categories)
   return (
-  
-    
-    <span className='darkBtn' onClick={this.props.action.openModal}>
-      Add Post
+   
       <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
@@ -165,16 +148,14 @@ onPostClick() {
             className='newPostInput'
             placeholder="What's your ideas?" />
         </div>
-       
         <button
           className='submitPostBtn'
-         disabled={!(this.state.category&&this.state.author&&this.state.title&&this.state.body)}
+          
           onClick={this.onPostClick.bind(this)}
           >
             Send Post
         </button>
       </ReactModal>
-    </span>
  
   )
 
@@ -207,14 +188,13 @@ const mapDispatchToProps = dispatch => ({
     })
 
  const { object, string, func, bool,array } = PropTypes
-   Modal.PropTypes = {
-   postBody: PropTypes.string.isRequired,
+   EditModal.PropTypes = {
     isOpen: PropTypes.bool.isRequired,
    isSubmitDisabled: PropTypes.bool.isRequired,
    categories: PropTypes.array.isRequired,
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
-   history: PropTypes.object.isRequired,
+   post:PropTypes.object.isRequired,
  // post:PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
 //   action:PropTypes.PropTypes.object.isRequired,
@@ -232,4 +212,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Modal)
+)(EditModal)

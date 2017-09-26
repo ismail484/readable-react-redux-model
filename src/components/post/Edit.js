@@ -1,3 +1,11 @@
 import React from 'react'
 
-export const Edit = () => <div className="Edit">edit</div>
+export const Edit = (props) => {
+  return(
+    <div
+      onClick={() => props.onClickEdit(props.id)} 
+      className="Delete">
+      edit
+    </div>
+  )
+}

@@ -16,6 +16,7 @@ import thunk from 'redux-thunk'
 import reducer from './reducer'
 import modalReducer from './reducer/modalReducer'
 import { createStore, applyMiddleware, compose } from 'redux'
+import registerServiceWorker from './registerServiceWorker'
 
 
 const store = configureStore()
@@ -37,3 +38,4 @@ render(
     </Provider>,
     document.getElementById('root')
 );
+registerServiceWorker()

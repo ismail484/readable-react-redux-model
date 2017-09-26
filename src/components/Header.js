@@ -12,7 +12,6 @@ class Header extends Component {
         <div className="Hamburger-Name-Container">
           <Hamburger 
             onHamburgerClick={this.props.onHamburgerClick} />
-          <MainTitle name='Readable'/>
         </div>
       </div>
     )

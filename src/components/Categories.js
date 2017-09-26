@@ -34,7 +34,7 @@ class Categories extends Component {
 const All = () => {
   return(
     <li key='All'>
-      <Link to='/posts'>All</Link>
+      <Link to='/posts'>All Categories</Link>
     </li>
   )
 }

@@ -44,10 +44,7 @@ export default function postsReducer (state =initialState.postsReducer,action){
 
 
 case ActionType.DELETE_POST :
-      // const newState = Object.assign([], state)
-      // const indexOfPostToDelete = state.findIndex(post => post.id == action.post.id)
-      // newState.splice(indexOfPostToDelete, 1);
-      // return newState
+      
       const currentPost = [...state.posts]
       const indexToDelete = currentPost.findIndex(post => post.id === action.id)
       return {
@@ -57,10 +54,6 @@ case ActionType.DELETE_POST :
 
 
 case ActionType.UP_VOTE_POST:
-    // const newState1 = Object.assign([], state)
-    // const indexOfPostUp = state.findIndex(post => post.id == action.post.id)
-    // newState1[indexOfPostUp].voteScore=state[indexOfPostUp]+1
-    // return newState1
       const currentPostUpVote = [...state.posts]
       const indexUp= currentPostUpVote.findIndex(post => post.id === action.id)
       currentPostUpVote[indexUp].voteScore = currentPostUpVote[indexUp].voteScore + 1
@@ -70,10 +63,7 @@ case ActionType.UP_VOTE_POST:
 
 
 case ActionType.DOWN_VOTE_POST:
-    // const newState2 = Object.assign([], state)
-    // const indexOfPostDown = state.findIndex(post => post.id == action.post.id)
-    // newState2[indexOfPostDown].voteScore=state[indexOfPostDown]+1
-    // return newState2
+   
     const currentPostDownVote = [...state.posts]
       const indexDown= currentPostDownVote.findIndex(post => post.id === action.id)
       currentPostDownVote[indexDown].voteScore = currentPostDownVote[indexDown].voteScore - 1
