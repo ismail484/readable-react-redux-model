@@ -4,7 +4,21 @@ import { connect } from 'react-redux'
 import { getCategories } from '../action/categoriesAction'
 
 
+const modalStyles = {
+  content: {
+    width: 350,
+    margin: '0px auto',
+    height: 220,
+    borderRadius: 5,
+    background: '#EBEBEB',
+    padding: 0,
+  },
+}
+
+
 class Categories extends Component {
+
+
   
   componentDidMount() {  
     this.props.getCategories()
