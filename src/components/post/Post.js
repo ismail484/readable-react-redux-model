@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { deletePost, downVotePost, upVotePost,editPost } from '../../action/postsAction'
+import { deletePost, downVotePost, upVotePost,editPost,getPost } from '../../action/postsAction'
 import { Title } from './Title'
 import { Author } from './Author'
 import { Comments } from './Comments'
@@ -18,10 +18,9 @@ class Post extends Component {
     voteScore: 0
   }
 
-  onClickEdit = (post,id) => {
-    this.props.editPost(post,id)
-    return(<EditModal post={this.props.post}/>)
-  }
+  // onClickEdit = (id) => {
+  //   this.props.editPost(this.prpos.post,id)
+  // }
 
   onClickDelete = (id) => {
     this.props.deletePost(id)
@@ -93,7 +92,8 @@ const mapDispatchToProps = (dispatch) => {
     deletePost: (id) => dispatch(deletePost(id)),
     upVotePost: (id) => dispatch(upVotePost(id)),
     downVotePost: (id) => dispatch(downVotePost(id)),
-    //getAllComments: (from, id) => dispatch(getAllComments(from, id))
+   // getPost:(id)=>dispatch(getPost(id)),
+   
 
   }
 }

@@ -38,24 +38,17 @@ state = {
     category: ''
   }
 
-  componentDidMount() {
-    const { id } = this.props
-    console.log('id',id)
-    this.props.action.getPost(id)
-      .then(() => {
-           const { title, author, body, category, voteScore } = this.props.post
-        console.log('category',category)
-        // this.setState({
-        //   id,
-        //   title,
-        //   author,
-        //   body,
-        //   category
-        // })
-         
-      })
-  
+   componentDidMount() {
+    const { id, title, author, body, category } = this.props.post
+    this.setState({
+      id,
+      title,
+      author,
+      body,
+      category
+    })
   }
+
 
   onTitleChange = (e) => {
     this.setState({
@@ -112,14 +105,15 @@ state = {
   }
 
   render() {
-    const { id,title, author, body, category, voteScore } = this.props.post
-    this.state={id,title, author, body, category, voteScore}
+    const {id}=this.props
+    // const { id,title, author, body, category, voteScore } = this.props.post
+    // this.state={id,title, author, body, category, voteScore}
 
     //this.setState((state)=>{title,author,body,category})
     // this.setState((state, props) => ({title,author,body,category}))
     console.log('post is', this.props.post)
     return(
-     <div className="Delete"  onClick={this.props.action.openModal}>
+     <div className="Delete"  onClick={this.props.action.getPost(id).then(()=>this.props.action.openModal)}>
         edit
       <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
@@ -152,7 +146,7 @@ state = {
    <div className='inputField'>
    <label>Author</label>
    <input value={this.state.author}  
-          onChange={(e) => this.onAuthorChange(e)}
+           onChange={this.onAuthorChange}
     />
    </div>
 
