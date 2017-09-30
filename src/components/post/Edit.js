@@ -108,7 +108,7 @@ state = {
     // this.setState((state, props) => ({title,author,body,category}))
     console.log('post is', this.props.post)
     return(
-     <div className="Delete"  onClick={this.props.action.getPost(id).then(()=>this.props.action.openModal)}>
+     <div className="Delete"  onClick={this.props.action.openModal}>
         edit
       <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
@@ -181,7 +181,7 @@ function mapStateToProps (state,ownProps) {
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts,
-   //post:postsReducer.post
+  // post:postsReducer.post
  
 
 
@@ -211,5 +211,7 @@ const { object, string, func, bool,array } = PropTypes
 
 
  export default connect(mapStateToProps, mapDispatchToProps)(Edit)
+
+
 
 
