@@ -35,9 +35,19 @@ state = {
     title: '',
     author: '',
     body: '',
-    category: ''
+    category: '',
+    
   }
 
+  componentDidMount() {
+    const { id } = this.props
+    console.log('id',id)
+    this.props.action.getPost(id)
+      .then(() => {
+           const { title, author, body, category, voteScore } = this.props.post
+        console.log('category',category)
+      })
+  }
 
   componentWillReceiveProps (nextProps) {
     const { id,title, author, body, category, voteScore } = nextProps.post
@@ -99,6 +109,7 @@ state = {
   }
 
   render() {
+    console.log ('state',this.state)
     // const { id,title, author, body, category, voteScore } = this.props.post
     // this.state={id,title, author, body, category, voteScore}
 
@@ -209,7 +220,5 @@ const { object, string, func, bool,array } = PropTypes
 
 
  export default connect(mapStateToProps, mapDispatchToProps)(Edit)
-
-
 
 
