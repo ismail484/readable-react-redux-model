@@ -38,17 +38,8 @@ state = {
     category: ''
   }
 
-   componentDidMount() {
-    const { id, title, author, body, category } = this.props.post
-    this.setState({
-      id,
-      title,
-      author,
-      body,
-      category
-    })
-  }
-
+ 
+    
 
   onTitleChange = (e) => {
     this.setState({
@@ -104,8 +95,12 @@ state = {
     this.props.action.closeModal()
   }
 
-  render() {
-    const {id}=this.props
+
+
+    render() {
+     const {id,title, author, body, category, voteScore}=this.props.post
+    // const { id,title, author, body, category, voteScore } = this.props.post
+     this.state={id,title, author, body, category, voteScore}
     // const { id,title, author, body, category, voteScore } = this.props.post
     // this.state={id,title, author, body, category, voteScore}
 
@@ -186,7 +181,7 @@ function mapStateToProps (state,ownProps) {
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts,
-   post:postsReducer.post
+   //post:postsReducer.post
  
 
 
