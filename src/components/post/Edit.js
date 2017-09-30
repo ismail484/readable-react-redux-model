@@ -38,23 +38,10 @@ state = {
     category: ''
   }
 
-  componentDidMount() {
-    const { id } = this.props
-    console.log('id',id)
-    this.props.action.getPost(id)
-      .then(() => {
-           const { title, author, body, category, voteScore } = this.props.post
-        console.log('category',category)
-        // this.setState({
-        //   id,
-        //   title,
-        //   author,
-        //   body,
-        //   category
-        // })
-         
-      })
-  
+
+  componentWillReceiveProps (nextProps) {
+    const { id,title, author, body, category, voteScore } = nextProps.post
+    this.state={id,title, author, body, category, voteScore}
   }
 
   onTitleChange = (e) => {
@@ -112,8 +99,8 @@ state = {
   }
 
   render() {
-    const { id,title, author, body, category, voteScore } = this.props.post
-    this.state={id,title, author, body, category, voteScore}
+    // const { id,title, author, body, category, voteScore } = this.props.post
+    // this.state={id,title, author, body, category, voteScore}
 
     //this.setState((state)=>{title,author,body,category})
     // this.setState((state, props) => ({title,author,body,category}))
@@ -222,5 +209,7 @@ const { object, string, func, bool,array } = PropTypes
 
 
  export default connect(mapStateToProps, mapDispatchToProps)(Edit)
+
+
 
 
