@@ -31,6 +31,7 @@ const modalStyles = {
 class Edit extends Component{
 
 state = {
+  id:'',
     title: '',
     author: '',
     body: '',
@@ -41,15 +42,17 @@ state = {
     const { id } = this.props
     console.log('id',id)
     this.props.action.getPost(id)
-      .then((response) => {
+      .then(() => {
            const { title, author, body, category, voteScore } = this.props.post
-       // console.log('category',category)
-        this.setState({
-          title,
-          author,
-          body,
-          category
-        })
+        console.log('category',category)
+        // this.setState({
+        //   id,
+        //   title,
+        //   author,
+        //   body,
+        //   category
+        // })
+         
       })
   
   }
@@ -72,8 +75,15 @@ state = {
     })
   }
 
+  onCategoryChange = (e) => {
+    this.setState({
+      category: e.target.value
+    })
+    
+  }
+
   onEditClick = () => {
-    const { title, category, author, body } = this.state
+   const { title, category, author, body } = this.state
 
    if(title&&category&&author&&body){
   
@@ -85,31 +95,29 @@ state = {
       body
      }
 
-  this.props.action.editPost(editPost).then(()=>this.setState({
+  this.props.action.addPost(editPost).then(()=>this.setState({
         title: '',
         category:'',
         author:'',
         body:'',
         success:true,
         valid:true
-   })).then(() =>{ toastr.success('Post was edited successfully')
+   })).then(() =>{ toastr.success('Post edited successfully')
                     }).catch(error => {
                 toastr.error(error);
             }); 
- }else{
-   this.setState({
-       
-    valid:false,
-    success :false
-   })
-
  }
-   this.props.action.closeModal()
   
+    this.props.action.closeModal()
   }
 
   render() {
-    
+    const { id,title, author, body, category, voteScore } = this.props.post
+    this.state={id,title, author, body, category, voteScore}
+
+    //this.setState((state)=>{title,author,body,category})
+    // this.setState((state, props) => ({title,author,body,category}))
+    console.log('post is', this.props.post)
     return(
      <div className="Delete"  onClick={this.props.action.openModal}>
         edit
@@ -175,6 +183,7 @@ state = {
 function mapStateToProps (state,ownProps) {
   const { modalReducer,categoriesReducer,postsReducer} = state
   const postBodyLength = modalReducer.postBody.length
+
    
   return {
    
@@ -183,7 +192,7 @@ function mapStateToProps (state,ownProps) {
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts,
-   post: postsReducer.post
+   post:postsReducer.post
  
 
 

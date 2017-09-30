@@ -57,8 +57,8 @@ onPostClick() {
    if(title&&category&&author&&body){
   
      const newPost = {
-       id: uuidv1(),
-       timestamp: Date.now(),
+      id: uuidv1(),
+      timestamp: Date.now(),
       title,
       category,
       author,

@@ -11,7 +11,6 @@ import PostsList from './post/PostsList'
 import Modal from './modal/Modal'
 import Header from './Header'
 import SideNav from './SideNav'
-import EditPost from './EditPost'
 
 
 const history = createBrowserHistory();
