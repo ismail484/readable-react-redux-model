@@ -18,9 +18,17 @@ class Post extends Component {
     voteScore: 0
   }
 
-  // onClickEdit = (id) => {
-  //   this.props.editPost(this.prpos.post,id)
-  // }
+   componentDidMount() {
+
+    const { voteScore } = this.props.post
+    this.setState({
+      voteScore: voteScore
+    })
+  }
+
+   onClickEdit = (id,post) => {
+   this.props.editPost(id,post)
+   }
 
   onClickDelete = (id) => {
     this.props.deletePost(id)
@@ -40,14 +48,7 @@ class Post extends Component {
     })
   }
 
-  componentDidMount() {
-        //this.props.getAllComments('posts', this.props.post.id)
-
-    const { voteScore } = this.props.post
-    this.setState({
-      voteScore: voteScore
-    })
-  }
+ 
 
   render() {
     const { body, title, author, id } = this.props.post
@@ -71,8 +72,11 @@ class Post extends Component {
             id={id} 
             onClickDownVote={this.onClickDownVote}
             onClickUpVote={this.onClickUpVote} />
-           <Edit id={id} />
-          <Delete id={id} onClickDelete={this.onClickDelete}/>
+           <Edit id={id} 
+                post={this.props.post}
+                onClickEdit={this.onClickEdit} />
+          <Delete id={id} 
+                  onClickDelete={this.onClickDelete}/>
         </div>
       </div>
     )
@@ -82,17 +86,17 @@ class Post extends Component {
 const mapStateToProps = (state) => {
   const{postsReducer}=state
   return {
-    posts: postsReducer.posts
+    posts: postsReducer.posts,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-     editPost: (post,id) => dispatch(editPost(post,id)),
+     editPost: (id,post) => dispatch(editPost(id,post)),
     deletePost: (id) => dispatch(deletePost(id)),
     upVotePost: (id) => dispatch(upVotePost(id)),
     downVotePost: (id) => dispatch(downVotePost(id)),
-   // getPost:(id)=>dispatch(getPost(id)),
+    
    
 
   }

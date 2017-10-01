@@ -39,15 +39,15 @@ state = {
     
   }
 
-  componentDidMount() {
-    const { id } = this.props
-    console.log('id',id)
-    this.props.action.getPost(id)
-      .then(() => {
-           const { title, author, body, category, voteScore } = this.props.post
-        console.log('category',category)
-      })
-  }
+  // componentDidMount() {
+  //   const { id } = this.props
+  //   console.log('id',id)
+  //   this.props.action.getPost(id)
+  //     .then(() => {
+  //          const { title, author, body, category, voteScore } = this.props.post
+  //       console.log('category',category)
+  //     })
+  // }
 
   componentWillReceiveProps (nextProps) {
     const { id,title, author, body, category, voteScore } = nextProps.post
@@ -90,7 +90,7 @@ state = {
       body
      }
 
-  this.props.action.editPost(id,{title,category,author,body}).then(()=>this.setState({
+  this.props.onClickEdit(id,{title,category,author,body}).then(()=>this.setState({
         title: '',
         category:'',
         author:'',
@@ -117,7 +117,8 @@ state = {
            <select className='ui dropdown'
              value={this.state.category}
                   selected
-                  onChange={this.onCategoryChange}
+                  //onChange={this.onCategoryChange}
+                   onChange={(e) => this.onCategoryChange(e)}
                   style={{color: '#00b200'}}>
           <option value=''>Select a Category</option>
           {_.map(this.props.categories, category => {
@@ -181,7 +182,7 @@ function mapStateToProps (state,ownProps) {
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts,
-   post:postsReducer.post
+   //post:postsReducer.post
  
 
 
@@ -205,6 +206,7 @@ const { object, string, func, bool,array } = PropTypes
    openModal: PropTypes.func.isRequired,
    id:  PropTypes.object.isRequired,
    post:PropTypes.object.isRequired,
+   onClickEdit: PropTypes.func.isRequired,
 
 
  } 
