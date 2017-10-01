@@ -80,41 +80,32 @@ state = {
   }
 
   onEditClick = () => {
-   const { title, category, author, body } = this.state
-
-   if(title&&category&&author&&body){
+   const { id,title, category, author, body } = this.state
   
-     const editPost = {
-      timestamp: Date.now(),
+     const editedPost = {
+       id,
       title,
       category,
       author,
       body
      }
 
-  this.props.action.addPost(editPost).then(()=>this.setState({
+  this.props.action.editPost(id,{title,category,author,body}).then(()=>this.setState({
         title: '',
         category:'',
         author:'',
         body:'',
-        success:true,
-        valid:true
    })).then(() =>{ toastr.success('Post edited successfully')
                     }).catch(error => {
                 toastr.error(error);
             }); 
- }
+ 
   
     this.props.action.closeModal()
   }
 
   render() {
     console.log ('state',this.state)
-    // const { id,title, author, body, category, voteScore } = this.props.post
-    // this.state={id,title, author, body, category, voteScore}
-
-    //this.setState((state)=>{title,author,body,category})
-    // this.setState((state, props) => ({title,author,body,category}))
     console.log('post is', this.props.post)
     return(
      <div className="Delete"  onClick={this.props.action.openModal}>

@@ -80,9 +80,9 @@ export function getPostSuccess(post,comments) {
    }
  }
 
-  export function editPost(post,id) {
+  export function editPost(id,post) {
    return function (dispatch) {
-     return PostsApi.editPost(post,id).then(responsePost => {
+     return PostsApi.editPost(id,post).then(responsePost => {
        dispatch(editPostSuccess(responsePost));
        return responsePost;
      }).catch(error => {

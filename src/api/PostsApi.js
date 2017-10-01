@@ -29,11 +29,12 @@ export const deletePost = (id) => {
 }
 
 // DELETE /posts/:id
-export const editPost = (post,id) => {
+export const editPost = (id,post) => {
   return fetch(`${api}/posts/${id}`, { 
     method: 'PUT',
     headers 
   })
+  body: JSON.stringify(post)
 }
 
 
