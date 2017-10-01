@@ -50,8 +50,8 @@ state = {
   // }
 
   componentWillReceiveProps (nextProps) {
-    const { id,title, author, body, category, voteScore } = nextProps.post
-    this.state={id,title, author, body, category, voteScore}
+    const { title, author, body, category, voteScore } = nextProps.post
+    this.state={title, author, body, category, voteScore}
   }
 
   onTitleChange = (e) => {
@@ -79,11 +79,11 @@ state = {
     
   }
 
-  onEditClick = () => {
-   const { id,title, category, author, body } = this.state
+  onClickEdit = () => {
+   const { title, category, author, body } = this.state
   
+   const id=this.props.id
      const editedPost = {
-       id,
       title,
       category,
       author,
@@ -160,7 +160,7 @@ state = {
         <button
           className='submitPostBtn'
          disabled={!(this.state.category&&this.state.author&&this.state.title&&this.state.body)}
-          onClick={this.onEditClick.bind(this)}
+          onClick={this.onClickEdit.bind(this)}
           >
             Send Post
         </button>

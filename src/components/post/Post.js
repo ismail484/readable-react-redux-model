@@ -97,8 +97,7 @@ const mapDispatchToProps = (dispatch) => {
     upVotePost: (id) => dispatch(upVotePost(id)),
     downVotePost: (id) => dispatch(downVotePost(id)),
     
-   
-
+  
   }
 }
 
