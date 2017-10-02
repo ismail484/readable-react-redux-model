@@ -149,8 +149,9 @@ export function upVotePostSuccess (id) {
    };
  }
 
-
-
+export const deletePosts = () => ({
+  type: ActionType.DELETE_POSTS
+})
 
 
 

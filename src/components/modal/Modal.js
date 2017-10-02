@@ -23,6 +23,7 @@ const modalStyles = {
     borderRadius: 5,
     background: '#EBEBEB',
     padding: 0,
+    
   },
 }
 
@@ -118,7 +119,7 @@ onPostClick() {
   return (
   
     
-    <span className='darkBtn' onClick={this.props.action.openModal}>
+    <span className='darkBtn'  onClick={this.props.action.openModal}>
       Add Post
       <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>

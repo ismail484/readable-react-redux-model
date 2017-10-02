@@ -8,6 +8,7 @@ const Hamburger = (props) => {
       onClick={props.onHamburgerClick}>
 			<div className='Hamburger'>
 				<div className='Hamburger-Middle'>
+					
 				</div>
 			</div>
 		</div>

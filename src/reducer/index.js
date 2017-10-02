@@ -3,6 +3,7 @@ import modalReducer from './modalReducer'
 import postsReducer from './postsReducer'
 import commentsReducer from './commentsReducer'
 import categoriesReducer from './categoriesReducer'
+import sortedReducer from './sortedReducer'
 
  
 
@@ -12,9 +13,8 @@ const rootReducer= combineReducers({
     modalReducer,
     postsReducer,
     categoriesReducer,
-    commentsReducer
-    //sortedPostsReducer
-   // listenerReducer
+    commentsReducer,
+    sortedReducer
     
       
 })

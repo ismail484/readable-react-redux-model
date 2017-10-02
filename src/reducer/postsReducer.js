@@ -24,10 +24,6 @@ export default function postsReducer (state =initialState.postsReducer,action){
         ...state,
         posts: [...state.posts, action.post]
       }
-      // return {
-      //   ...state,
-      //   post:action.post
-      // }
          
  case ActionType.EDIT_POST :
       return [
@@ -67,7 +63,10 @@ case ActionType.DELETE_POST :
         posts: [...currentPost.slice(0, indexToDelete), 
         ...currentPost.slice(indexToDelete + 1)]
       }
-
+case ActionType.DELETE_POSTS :
+      return {
+        posts: []
+    }
 
 case ActionType.UP_VOTE_POST:
       const currentPostUpVote = [...state.posts]

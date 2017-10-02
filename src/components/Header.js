@@ -10,6 +10,7 @@ class Header extends Component {
     return(
       <div className="Header">
         <div className="Hamburger-Name-Container">
+           <div>All Categories</div>
           <Hamburger 
             onHamburgerClick={this.props.onHamburgerClick} />
         </div>

@@ -22,7 +22,7 @@ render(){
         <div >
             <Router history={history}>
                 <div>
-             <HeaderNavContainer/>
+               <HeaderNavContainer/>  
                     
                     <Switch>
                         <Route exact path="/" component={Home} />
@@ -39,8 +39,12 @@ render(){
             
             </Router>
         </div>
-    );
-};
+    )
 }
+}
+
+
+
+
 
 export default App

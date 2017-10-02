@@ -25,7 +25,8 @@ export default {
 
     postsReducer: {
         posts: [],
-        post:{}
+        post:{},
+        
     },
 
     // sortedPostsReducer: {
@@ -42,9 +43,11 @@ export default {
     modalReducer: {
         postBody: '',
         isOpen: false
-    }
+    },
 
-    
+    sortedReducer: {
+         sort:'popular'
+    },
 
 
 }
