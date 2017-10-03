@@ -103,7 +103,7 @@ onPostClick() {
    console.log('categories',this.props.categories)
   return (
    
-      <ReactModal style={modalStyles} isOpen={this.props.isOpen === this.props.id} onRequestClose={this.props.action.closeModal}>
+      <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
               

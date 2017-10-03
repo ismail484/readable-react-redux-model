@@ -1,31 +1,11 @@
 import * as ActionType from './ActionType'
-import * as PostsApi from '../api/PostsApi';
-import * as CommentsApi from '../api/CommentsApi'
+import CommentsApi from '../api/CommentsApi'
+
 
 
 // comments
 //wrapping all actions in action creators functions
 //it takes an object (all payloads to setup the event)
-
-//add comment
-export function addCommentSuccess (comment) {
-  return {
-    type: ActionType.ADD_COMMENT,
-    comment,
-  }
-}
-export function addComment(comment) {
-  return function (dispatch) {
-    return CommentsApi.addComment(comment).then(responseComment => {
-      dispatch(addCommentSuccess(responseComment));
-      return responseComment;
-    }).catch(error => {
-      throw(error);
-    });
-  };
-}
-
-
 
 export function getAllCommentstSuccess (id,comments) {
   return {
@@ -35,7 +15,6 @@ export function getAllCommentstSuccess (id,comments) {
   }
 }
 
-
 export function loadCommentsForPostSuccess (id) {
   return {
     type: ActionType.LOAD_COMMENTS_FOR_POST,
@@ -43,12 +22,12 @@ export function loadCommentsForPostSuccess (id) {
   }
 }
 
-
-
-
-
-
-
+export function createCommentSuccess (comment) {
+  return {
+    type: ActionType.ADD_COMMENT,
+    comment,
+  }
+}
 
 export function updateCommentSuccess (comment) {
   return {
@@ -79,7 +58,19 @@ export function downVoteCommentSuccess (id) {
   }
 }
 
+export function getAllComments(id) {
+  // make async call to api, handle promise, dispatch action when promise is resolved
+  return function(dispatch) {
+    return CommentsApi.getAllComments().then(comments => {
+  
+        dispatch(getAllCommentstSuccess(comments))
 
+     
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
 
 
 
@@ -106,7 +97,16 @@ export function updateComment(comment) {
   };
 }
 
-
+export function createComment(comment) {
+  return function (dispatch) {
+    return CommentsApi.createComment(comment).then(responseComment => {
+      dispatch(createCommentSuccess(responseComment));
+      return responseComment;
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
 
 export function deleteComment(id) {
   return function(dispatch) {

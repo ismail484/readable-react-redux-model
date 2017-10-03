@@ -11,7 +11,6 @@ import PostsList from './post/PostsList'
 import Modal from './modal/Modal'
 import Header from './Header'
 import SideNav from './SideNav'
-import EditPost from './EditPost'
 
 
 const history = createBrowserHistory();
@@ -31,7 +30,6 @@ render(){
                         <Route path="/posts" component={Posts} />
                         <Route exact path ='/:category' component={PostsList} />
                         <Route exact path ='/:category/:id' component={PostDetail} />
-                        {/* <Route exact path ='/edit/:id' component={EditPost} /> */}
                     
                        
           

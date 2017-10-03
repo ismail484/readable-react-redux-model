@@ -5,7 +5,7 @@ import initialState from './initialState'
 
 
 //initialState.posts
-export default function commentsReducer (state =initialState.postsReducer  ,action){
+export default function commentsReducer (state =initialState.commentsReducer  ,action){
   //const { posts,id, timestamp, title,body,author,category,voteScore,deleted } = action
  
     //new state
@@ -14,24 +14,11 @@ export default function commentsReducer (state =initialState.postsReducer  ,acti
 case ActionType.LOAD_COMMENTS_FOR_POST :
          
       return Object.assign([], state, action.comments)
-
-
-    case ActionType.ADD_COMMENT:
-      return {
-        ...state,
-        post: {
-          ...state.post,
-          comments: [...state.post.comments, action.comment]
-        }
-      }
     
+
 
 default :
       return state
   }
-
-
-
-  
 }
 

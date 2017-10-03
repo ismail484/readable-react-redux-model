@@ -4,10 +4,9 @@ import * as ActionType from './ActionType';
 
 //Modal
 
-export function openModal (id) {
+export function openModal () {
   return {
     type: ActionType.OPEN_MODAL,
-    id:id
   }
 }
 
