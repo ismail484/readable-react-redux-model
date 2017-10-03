@@ -72,9 +72,9 @@ class Post extends Component {
             id={id} 
             onClickDownVote={this.onClickDownVote}
             onClickUpVote={this.onClickUpVote} />
-           {/* <Edit id={id} 
+           <Edit id={id} 
                 post={this.props.post}
-                onClickEdit={this.onClickEdit} /> */}
+                onClickEdit={this.onClickEdit} />
           <Delete id={id} 
                   onClickDelete={this.onClickDelete}/>
         </div>

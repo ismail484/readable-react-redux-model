@@ -35,20 +35,25 @@ state = {
     title: '',
     author: '',
     body: '',
-    category: ''
+    category: '',
+    
   }
 
-   componentDidMount() {
-    const { id, title, author, body, category } = this.props.post
-    this.setState({
-      id,
-      title,
-      author,
-      body,
-      category
-    })
-  }
+  // componentDidMount() {
+  //   const { id } = this.props
+  //   console.log('id',id)
+  //   this.props.action.getPost(id)
+  //     .then(() => {
+  //          const { title, author, body, category, voteScore } = this.props.post
+  //       console.log('category',category)
+  //     })
+  // }
 
+  componentWillReceiveProps (nextProps) {
+    const { title, author, body, category, voteScore } = nextProps.post
+    const{id}=nextProps.id
+    this.state={id,title, author, body, category, voteScore}
+  }
 
   onTitleChange = (e) => {
     this.setState({
@@ -75,45 +80,36 @@ state = {
     
   }
 
-  onEditClick = () => {
-   const { title, category, author, body } = this.state
-
-   if(title&&category&&author&&body){
+  onClickEdit = () => {
+   const {id,title, category, author, body } = this.state
   
-     const editPost = {
-      timestamp: Date.now(),
+   //const id=this.props.id
+     const editedPost = {
       title,
       category,
       author,
       body
      }
 
-  this.props.action.addPost(editPost).then(()=>this.setState({
+  this.props.onClickEdit(id,{title,category,author,body}).then(()=>this.setState({
         title: '',
         category:'',
         author:'',
         body:'',
-        success:true,
-        valid:true
    })).then(() =>{ toastr.success('Post edited successfully')
                     }).catch(error => {
                 toastr.error(error);
             }); 
- }
+ 
   
     this.props.action.closeModal()
   }
 
   render() {
-    const {id}=this.props
-    // const { id,title, author, body, category, voteScore } = this.props.post
-    // this.state={id,title, author, body, category, voteScore}
-
-    //this.setState((state)=>{title,author,body,category})
-    // this.setState((state, props) => ({title,author,body,category}))
+    console.log ('state',this.state)
     console.log('post is', this.props.post)
     return(
-     <div className="Delete"  onClick={this.props.action.getPost(id).then(()=>this.props.action.openModal)}>
+     <div className="Delete"  onClick={this.props.action.openModal}>
         edit
       <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
@@ -122,7 +118,8 @@ state = {
            <select className='ui dropdown'
              value={this.state.category}
                   selected
-                  onChange={this.onCategoryChange}
+                  //onChange={this.onCategoryChange}
+                   onChange={(e) => this.onCategoryChange(e)}
                   style={{color: '#00b200'}}>
           <option value=''>Select a Category</option>
           {_.map(this.props.categories, category => {
@@ -146,7 +143,7 @@ state = {
    <div className='inputField'>
    <label>Author</label>
    <input value={this.state.author}  
-           onChange={this.onAuthorChange}
+          onChange={(e) => this.onAuthorChange(e)}
     />
    </div>
 
@@ -164,7 +161,7 @@ state = {
         <button
           className='submitPostBtn'
          disabled={!(this.state.category&&this.state.author&&this.state.title&&this.state.body)}
-          onClick={this.onEditClick.bind(this)}
+          onClick={this.onClickEdit.bind(this)}
           >
             Send Post
         </button>
@@ -186,7 +183,7 @@ function mapStateToProps (state,ownProps) {
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts,
-   post:postsReducer.post
+   //post:postsReducer.post
  
 
 
@@ -210,11 +207,13 @@ const { object, string, func, bool,array } = PropTypes
    openModal: PropTypes.func.isRequired,
    id:  PropTypes.object.isRequired,
    post:PropTypes.object.isRequired,
+   onClickEdit: PropTypes.func.isRequired,
 
 
  } 
 
 
  export default connect(mapStateToProps, mapDispatchToProps)(Edit)
+
 
 

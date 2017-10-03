@@ -1,18 +1,20 @@
-import React, { PropTypes } from 'react'
+//import React, { PropTypes,Component } from 'react'
+//import { getPost } from '../action/postAction'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import { default as ReactModal } from 'react-modal'
-import {formatPost} from '../../helper/format'
+import {formatPost} from '../helper/format'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { getCategories } from '../../action/categoriesAction'
-import { addPost } from '../../action/postsAction'
+import { getCategories } from '../action/categoriesAction'
+//import { addPost } from '../../action/postsAction'
 import { bindActionCreators } from 'redux'
-import * as modalActionCreators from '../../action/modalAction'
-import * as postsActionCreators from '../../action/postsAction'
-import * as categoriesActionCreators from '../../action/categoriesAction'
+import * as modalActionCreators from '../action/modalAction'
+import * as postsActionCreators from '../action/postsAction'
+import * as categoriesActionCreators from '../action/categoriesAction'
 import uuidv1 from 'uuid/v1'
 import toastr from 'toastr'
-
 
 
 const modalStyles = {
@@ -23,90 +25,64 @@ const modalStyles = {
     borderRadius: 5,
     background: '#EBEBEB',
     padding: 0,
-    
   },
 }
 
-
-
-
- class  Modal extends  React.Component {
-  
-  componentDidMount() { 
- 
-    this.props.action.getCategories();
-    // function getPostsAgain() { 
-    // return  this.props.action.getPosts()
-    // }
-  }
+class Edit extends Component{
 
 state = {
   id:'',
     title: '',
-    category: '',
     author: '',
     body: '',
-    valid:false,
-    success:false,
-  }
- 
-  // reset= (timestamp,title,category,author,body)=>this.setState({title: '',category:'',author:'',body:''})
-
-
-onPostClick() {
-  const { id,title, category, author, body } = this.state
-
-   if(title&&category&&author&&body){
-  
-     const newPost = {
-      id: uuidv1(),
-      timestamp: Date.now(),
-      title,
-      category,
-      author,
-      body
-     }
-
-  this.props.action.addPost(newPost).then(()=>this.setState({
+    category: '',
     
-        title: '',
-        category:'',
-        author:'',
-        body:'',
-        success:true,
-        valid:true
-   })).then(() =>{ 
-    this.props.action.deletePosts()
-    this.props.action.getPosts() 
-    toastr.success('Post saved')
-                    }).catch(error => {
-                toastr.error(error);
-            }); 
- }else{
-   this.setState({
-       
-    valid:false,
-    success :false
-   })
-
- }
-  //self.props.action.getPosts()
-  // this.props.action.getPosts()
-   // self.componentDidMount.getPostsAgain()
-  //this.reset()
-    this.props.action.closeModal()
   }
 
-  onTitleChange(e) {
-    this.setState({ title: e.target.value })
+  // componentDidMount() {
+  //   const { id } = this.props
+  //   console.log('id',id)
+  //   this.props.action.getPost(id)
+  //     .then(() => {
+  //          const { title, author, body, category, voteScore } = this.props.post
+  //       console.log('category',category)
+  //     })
+  // }
+
+  componentWillReceiveProps (nextProps) {
+      const { id } = this.props.match.params
+      this.props.action.getPost(id)
+      .then(() => {
+        const { title, author, body, category, voteScore } = this.props.post
+        this.setState({
+          id,
+          title,
+          author,
+          body,
+          category
+        })
+      })
+      //this.props.getCategories()  
+  }
+  
+
+
+  onTitleChange = (e) => {
+    this.setState({
+      title: e.target.value
+    })
   }
 
-  onAuthorChange(e) {
-    this.setState({ author: e.target.value })
+  onBodyChange = (e) => {
+    this.setState({
+      body: e.target.value
+    })
   }
 
-  onBodyChange(e) {
-    this.setState({ body: e.target.value })
+  onAuthorChange = (e) => {
+    this.setState({
+      author: e.target.value
+    })
   }
 
   onCategoryChange = (e) => {
@@ -116,24 +92,46 @@ onPostClick() {
     
   }
 
-
-
-
-  render() { 
-   console.log('categories',this.props.categories)
-   const{id}=this.state.id
-  return (
+  onClickEdit = () => {
+   const {id,title, category, author, body } = this.state
   
-    <span className='darkBtn'  onClick={this.props.action.openModal(this.state.id)}>
-      Add Post
-      <ReactModal style={modalStyles} isOpen={this.props.isOpen === this.state.id} onRequestClose={this.props.action.closeModal}>
+   //const id=this.props.id
+    //  const editedPost = {
+    //   title,
+    //   category,
+    //   author,
+    //   body
+    //  }
+
+  this.props.onClickEdit(id,{title,category,author,body}).then(()=>this.setState({
+        title: '',
+        category:'',
+        author:'',
+        body:'',
+   })).then(() =>{ toastr.success('Post edited successfully')
+                    }).catch(error => {
+                toastr.error(error);
+            }); 
+ 
+  
+    this.props.action.closeModal()
+  }
+
+  render() {
+    //   const { categories } = this.props.categories
+    console.log ('state',this.state)
+    console.log('post is', this.props.post)
+    return(
+     
+      <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
               
            <select className='ui dropdown'
              value={this.state.category}
                   selected
-                  onChange={this.onCategoryChange}
+                  //onChange={this.onCategoryChange}
+                   onChange={(e) => this.onCategoryChange(e)}
                   style={{color: '#00b200'}}>
           <option value=''>Select a Category</option>
           {_.map(this.props.categories, category => {
@@ -175,23 +173,20 @@ onPostClick() {
         <button
           className='submitPostBtn'
          disabled={!(this.state.category&&this.state.author&&this.state.title&&this.state.body)}
-          onClick={this.onPostClick.bind(this)}
+          onClick={this.onClickEdit.bind(this)}
           >
             Send Post
         </button>
       </ReactModal>
-    </span>
- 
-  )
+      
+    )
+  }
+}
 
-     }
-
-
- }
-
- function mapStateToProps (state,ownProps) {
+function mapStateToProps (state,ownProps) {
   const { modalReducer,categoriesReducer,postsReducer} = state
   const postBodyLength = modalReducer.postBody.length
+
    
   return {
    
@@ -199,8 +194,8 @@ onPostClick() {
    isOpen: modalReducer.isOpen,
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
-   posts:postsReducer.posts
-   //post: postsReducer.post
+   posts:postsReducer.posts,
+   post:postsReducer.post
  
 
 
@@ -212,8 +207,8 @@ const mapDispatchToProps = dispatch => ({
     action: bindActionCreators({...modalActionCreators,...categoriesActionCreators,...postsActionCreators}, dispatch)
     })
 
- const { object, string, func, bool,array } = PropTypes
-   Modal.PropTypes = {
+const { object, string, func, bool,array } = PropTypes
+   Edit.PropTypes = {
    postBody: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
    isSubmitDisabled: PropTypes.bool.isRequired,
@@ -221,21 +216,16 @@ const mapDispatchToProps = dispatch => ({
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
    history: PropTypes.object.isRequired,
- // post:PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
-//   action:PropTypes.PropTypes.object.isRequired,
-//   //updatePostBody: PropTypes.func.isRequired,
-   
-   
-//    //title: string.isRequired,
-//    //author: string.isRequired,
-//    //post:object.isRequired,
-//    // contentLabel: string.isRequired,
-//     //postFanout:func.isRequired
+   id:  PropTypes.object.isRequired,
+   post:PropTypes.object.isRequired,
+   onClickEdit: PropTypes.func.isRequired,
+
 
  } 
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Modal)
+
+ export default connect(mapStateToProps, mapDispatchToProps)(Edit)
+
+
+

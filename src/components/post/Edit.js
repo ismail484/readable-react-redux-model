@@ -50,8 +50,9 @@ state = {
   // }
 
   componentWillReceiveProps (nextProps) {
-    const { title, author, body, category, voteScore } = nextProps.post
-    this.state={title, author, body, category, voteScore}
+    const { id,title, author, body, category, voteScore } = nextProps.post
+    //const{id}=nextProps.id
+    this.state={id,title, author, body, category, voteScore}
   }
 
   onTitleChange = (e) => {
@@ -80,15 +81,15 @@ state = {
   }
 
   onClickEdit = () => {
-   const { title, category, author, body } = this.state
+   const {id,title, category, author, body } = this.state
   
-   const id=this.props.id
-     const editedPost = {
-      title,
-      category,
-      author,
-      body
-     }
+  //  //const id=this.props.id
+  //    const editedPost = {
+  //     title,
+  //     category,
+  //     author,
+  //     body
+  //    }
 
   this.props.onClickEdit(id,{title,category,author,body}).then(()=>this.setState({
         title: '',
@@ -108,9 +109,9 @@ state = {
     console.log ('state',this.state)
     console.log('post is', this.props.post)
     return(
-     <div className="Delete"  onClick={this.props.action.openModal}>
+     <div className="Delete"  onClick={this.props.action.openModal(this.props.id)}>
         edit
-      <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
+      <ReactModal style={modalStyles} isOpen={this.props.isOpen === this.props.id} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
               
@@ -213,5 +214,6 @@ const { object, string, func, bool,array } = PropTypes
 
 
  export default connect(mapStateToProps, mapDispatchToProps)(Edit)
+
 
 

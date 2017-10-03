@@ -25,7 +25,13 @@ export default {
 
     postsReducer: {
         posts: [],
-        post:{},
+        post:{
+        comments:[],
+         comment:{}
+
+        },
+       
+        
         
     },
 
@@ -35,7 +41,8 @@ export default {
     // },
 
     commentsReducer: {
-         comments:[]
+         comments:[],
+         comment:{}
     },
 
 
