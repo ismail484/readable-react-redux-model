@@ -71,9 +71,9 @@ class PostsList extends Component {
       } else if(this.props.sort === 'date') {
         postList = filteredPosts.sort((a, b) => {
           if(a.timestamp > b.timestamp) {
-            return 1
-          } else {
             return -1
+          } else {
+            return 1
           }
           return 0
         }).map(post => (<li key={post.id}><Post post={post} /></li>))

@@ -1,20 +1,18 @@
-//import React, { PropTypes,Component } from 'react'
-//import { getPost } from '../action/postAction'
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import React, { PropTypes } from 'react'
 import { default as ReactModal } from 'react-modal'
 import {formatPost} from '../../helper/format'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { getCategories } from '../../action/categoriesAction'
-//import { addPost } from '../../action/postsAction'
+import { addPost } from '../../action/postsAction'
 import { bindActionCreators } from 'redux'
 import * as modalActionCreators from '../../action/modalAction'
 import * as postsActionCreators from '../../action/postsAction'
 import * as categoriesActionCreators from '../../action/categoriesAction'
 import uuidv1 from 'uuid/v1'
 import toastr from 'toastr'
+
 
 
 const modalStyles = {
@@ -25,52 +23,90 @@ const modalStyles = {
     borderRadius: 5,
     background: '#EBEBEB',
     padding: 0,
+    
   },
 }
 
-class Edit extends Component{
+
+
+
+ class  Modal extends  React.Component {
+  
+  componentDidMount() { 
+ 
+    this.props.action.getCategories();
+    // function getPostsAgain() { 
+    // return  this.props.action.getPosts()
+    // }
+  }
 
 state = {
   id:'',
     title: '',
+    category: '',
     author: '',
     body: '',
-    category: '',
+    valid:false,
+    success:false,
+  }
+ 
+  // reset= (timestamp,title,category,author,body)=>this.setState({title: '',category:'',author:'',body:''})
+
+
+onPostClick() {
+  const { id,title, category, author, body } = this.state
+
+   if(title&&category&&author&&body){
+  
+     const newPost = {
+      id: uuidv1(),
+      timestamp: Date.now(),
+      title,
+      category,
+      author,
+      body
+     }
+
+  this.props.action.addPost(newPost).then(()=>this.setState({
     
+        title: '',
+        category:'',
+        author:'',
+        body:'',
+        success:true,
+        valid:true
+   })).then(() =>{ 
+    this.props.action.deletePosts()
+    this.props.action.getPosts() 
+    toastr.success('Post saved')
+                    }).catch(error => {
+                toastr.error(error);
+            }); 
+ }else{
+   this.setState({
+       
+    valid:false,
+    success :false
+   })
+
+ }
+  //self.props.action.getPosts()
+  // this.props.action.getPosts()
+   // self.componentDidMount.getPostsAgain()
+  //this.reset()
+    this.props.action.closeModal()
   }
 
-  // componentDidMount() {
-  //   const { id } = this.props
-  //   console.log('id',id)
-  //   this.props.action.getPost(id)
-  //     .then(() => {
-  //          const { title, author, body, category, voteScore } = this.props.post
-  //       console.log('category',category)
-  //     })
-  // }
-
-  componentWillReceiveProps (nextProps) {
-    const { id,title, author, body, category, voteScore } = nextProps.post
-    //const{id}=nextProps.id
-    this.state={id,title, author, body, category, voteScore}
+  onTitleChange(e) {
+    this.setState({ title: e.target.value })
   }
 
-  onTitleChange = (e) => {
-    this.setState({
-      title: e.target.value
-    })
+  onAuthorChange(e) {
+    this.setState({ author: e.target.value })
   }
 
-  onBodyChange = (e) => {
-    this.setState({
-      body: e.target.value
-    })
-  }
-
-  onAuthorChange = (e) => {
-    this.setState({
-      author: e.target.value
-    })
+  onBodyChange(e) {
+    this.setState({ body: e.target.value })
   }
 
   onCategoryChange = (e) => {
@@ -80,47 +116,24 @@ state = {
     
   }
 
-  onClickEdit = () => {
-   const {id,title, category, author, body } = this.state
-  
-  //  //const id=this.props.id
-  //    const editedPost = {
-  //     title,
-  //     category,
-  //     author,
-  //     body
-  //    }
 
-  this.props.onClickEdit(id,{title,category,author,body}).then(()=>this.setState({
-        title: '',
-        category:'',
-        author:'',
-        body:'',
-   })).then(() =>{ toastr.success('Post edited successfully')
-                    }).catch(error => {
-                toastr.error(error);
-            }); 
- 
-  
-    this.props.action.closeModal()
-  }
 
-  render() {
-    console.log ('state',this.state)
-    console.log('post is', this.props.post)
-    //const NEW = 'new'
-    return(
-     <div className="Delete"  onClick={this.props.action.openModal(this.props.id)}>
-        edit
-      <ReactModal style={modalStyles} isOpen={this.props.isOpen==this.props.id} onRequestClose={this.props.action.closeModal}>
+
+  render() { 
+   console.log('categories',this.props.categories)
+   const{id}=this.state.id
+  return (
+  
+    <span className='darkBtn'  onClick={this.props.action.openModal()}>
+      Add Post
+      <ReactModal style={modalStyles} isOpen={this.props.isOpen === this.state.id} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
               
            <select className='ui dropdown'
              value={this.state.category}
                   selected
-                  //onChange={this.onCategoryChange}
-                   onChange={(e) => this.onCategoryChange(e)}
+                  onChange={this.onCategoryChange}
                   style={{color: '#00b200'}}>
           <option value=''>Select a Category</option>
           {_.map(this.props.categories, category => {
@@ -162,20 +175,23 @@ state = {
         <button
           className='submitPostBtn'
          disabled={!(this.state.category&&this.state.author&&this.state.title&&this.state.body)}
-          onClick={this.onClickEdit.bind(this)}
+          onClick={this.onPostClick.bind(this)}
           >
             Send Post
         </button>
       </ReactModal>
-      </div>
-    )
-  }
-}
+    </span>
+ 
+  )
 
-function mapStateToProps (state,ownProps) {
+     }
+
+
+ }
+
+ function mapStateToProps (state,ownProps) {
   const { modalReducer,categoriesReducer,postsReducer} = state
   const postBodyLength = modalReducer.postBody.length
-
    
   return {
    
@@ -183,8 +199,8 @@ function mapStateToProps (state,ownProps) {
    isOpen: modalReducer.isOpen,
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
-   posts:postsReducer.posts,
-   //post:postsReducer.post
+   posts:postsReducer.posts
+   //post: postsReducer.post
  
 
 
@@ -196,8 +212,8 @@ const mapDispatchToProps = dispatch => ({
     action: bindActionCreators({...modalActionCreators,...categoriesActionCreators,...postsActionCreators}, dispatch)
     })
 
-const { object, string, func, bool,array } = PropTypes
-   Edit.PropTypes = {
+ const { object, string, func, bool,array } = PropTypes
+   Modal.PropTypes = {
    postBody: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
    isSubmitDisabled: PropTypes.bool.isRequired,
@@ -205,16 +221,21 @@ const { object, string, func, bool,array } = PropTypes
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
    history: PropTypes.object.isRequired,
+ // post:PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
-   id:  PropTypes.object.isRequired,
-   post:PropTypes.object.isRequired,
-   onClickEdit: PropTypes.func.isRequired,
-
+//   action:PropTypes.PropTypes.object.isRequired,
+//   //updatePostBody: PropTypes.func.isRequired,
+   
+   
+//    //title: string.isRequired,
+//    //author: string.isRequired,
+//    //post:object.isRequired,
+//    // contentLabel: string.isRequired,
+//     //postFanout:func.isRequired
 
  } 
 
-
- export default connect(mapStateToProps, mapDispatchToProps)(Edit)
-
-
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Modal)

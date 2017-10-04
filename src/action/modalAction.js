@@ -7,6 +7,7 @@ import * as ActionType from './ActionType';
 export function openModal () {
   return {
     type: ActionType.OPEN_MODAL,
+   // id:id
   }
 }
 

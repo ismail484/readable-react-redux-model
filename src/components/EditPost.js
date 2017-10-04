@@ -3,16 +3,16 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { default as ReactModal } from 'react-modal'
-import {formatPost} from '../../helper/format'
+import {formatPost} from '../helper/format'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { getCategories } from '../../action/categoriesAction'
+import { getCategories } from '../action/categoriesAction'
 //import { addPost } from '../../action/postsAction'
 import { bindActionCreators } from 'redux'
-import * as modalActionCreators from '../../action/modalAction'
-import * as postsActionCreators from '../../action/postsAction'
-import * as categoriesActionCreators from '../../action/categoriesAction'
+import * as modalActionCreators from '../action/modalAction'
+import * as postsActionCreators from '../action/postsAction'
+import * as categoriesActionCreators from '../action/categoriesAction'
 import uuidv1 from 'uuid/v1'
 import toastr from 'toastr'
 
@@ -50,10 +50,22 @@ state = {
   // }
 
   componentWillReceiveProps (nextProps) {
-    const { id,title, author, body, category, voteScore } = nextProps.post
-    //const{id}=nextProps.id
-    this.state={id,title, author, body, category, voteScore}
+      const { id } = this.props.match.params
+      this.props.action.getPost(id)
+      .then(() => {
+        const { title, author, body, category, voteScore } = this.props.post
+        this.setState({
+          id,
+          title,
+          author,
+          body,
+          category
+        })
+      })
+      //this.props.getCategories()  
   }
+  
+
 
   onTitleChange = (e) => {
     this.setState({
@@ -83,13 +95,13 @@ state = {
   onClickEdit = () => {
    const {id,title, category, author, body } = this.state
   
-  //  //const id=this.props.id
-  //    const editedPost = {
-  //     title,
-  //     category,
-  //     author,
-  //     body
-  //    }
+   //const id=this.props.id
+    //  const editedPost = {
+    //   title,
+    //   category,
+    //   author,
+    //   body
+    //  }
 
   this.props.onClickEdit(id,{title,category,author,body}).then(()=>this.setState({
         title: '',
@@ -106,13 +118,12 @@ state = {
   }
 
   render() {
+    //   const { categories } = this.props.categories
     console.log ('state',this.state)
     console.log('post is', this.props.post)
-    //const NEW = 'new'
     return(
-     <div className="Delete"  onClick={this.props.action.openModal(this.props.id)}>
-        edit
-      <ReactModal style={modalStyles} isOpen={this.props.isOpen==this.props.id} onRequestClose={this.props.action.closeModal}>
+     
+      <ReactModal style={modalStyles} isOpen={this.props.isOpen} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
           <span>{'Compose new Post'}</span>
               
@@ -167,7 +178,7 @@ state = {
             Send Post
         </button>
       </ReactModal>
-      </div>
+      
     )
   }
 }
@@ -184,7 +195,7 @@ function mapStateToProps (state,ownProps) {
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts,
-   //post:postsReducer.post
+   post:postsReducer.post
  
 
 
