@@ -72,19 +72,19 @@ export function getPostSuccess(post,comments) {
 
 
 //edit post
- export function editPostSuccess (post,id) {
+ export function editPostSuccess (id,post) {
    return {
-     type: ActionType.Edit_POST,
-     post,
-     id
+     type: ActionType.EDIT_POST,
+     id,
+     post
    }
  }
 
   export function editPost(id,post) {
    return function (dispatch) {
-     return PostsApi.editPost(id,post).then(responsePost => {
-       dispatch(editPostSuccess(responsePost));
-       return responsePost;
+     return PostsApi.editPost(id,post).then(post => {
+       dispatch(editPostSuccess(post));
+       return post;
      }).catch(error => {
        throw(error);
      });

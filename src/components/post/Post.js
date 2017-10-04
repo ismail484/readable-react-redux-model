@@ -11,7 +11,6 @@ import { Delete } from './Delete'
 import { Count } from './Count'
 import {getAllComments} from '../../action/commentsAction'
 import Body from './Body'
-import EditModal from '../modal/EditModal'
 
 class Post extends Component {
   state = {
@@ -26,9 +25,9 @@ class Post extends Component {
     })
   }
 
-   onClickEdit = (id,post) => {
-   this.props.editPost(id,post)
-   }
+  //  onClickEdit = (id,post) => {
+  //  this.props.editPost(id,post)
+  //  }
 
   onClickDelete = (id) => {
     this.props.deletePost(id)
@@ -73,10 +72,11 @@ class Post extends Component {
             onClickDownVote={this.onClickDownVote}
             onClickUpVote={this.onClickUpVote} />
             <Edit id={id} 
-                post={this.props.post}
-                onClickEdit={this.onClickEdit} /> 
+                  post={this.props.post}
+                 /> 
           <Delete id={id} 
-                  onClickDelete={this.onClickDelete}/>
+                  onClickDelete={this.onClickDelete
+                  }/>
         </div>
       </div>
     )
@@ -87,12 +87,13 @@ const mapStateToProps = (state) => {
   const{postsReducer}=state
   return {
     posts: postsReducer.posts,
+    //post:postsReducer.post
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-     editPost: (id,post) => dispatch(editPost(id,post)),
+    // editPost: (id,post) => dispatch(editPost(id,post)),
     deletePost: (id) => dispatch(deletePost(id)),
     upVotePost: (id) => dispatch(upVotePost(id)),
     downVotePost: (id) => dispatch(downVotePost(id)),

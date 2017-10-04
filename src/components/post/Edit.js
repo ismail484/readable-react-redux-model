@@ -83,25 +83,11 @@ state = {
   onClickEdit = () => {
    const {id,title, category, author, body } = this.state
   
-  //  //const id=this.props.id
-  //    const editedPost = {
-  //     title,
-  //     category,
-  //     author,
-  //     body
-  //    }
-
-  this.props.onClickEdit(id,{title,category,author,body}).then(()=>this.setState({
-        title: '',
-        category:'',
-        author:'',
-        body:'',
-   })).then(() =>{ toastr.success('Post edited successfully')
-                    }).catch(error => {
-                toastr.error(error);
-            }); 
+  this.props.action.editPost(id,{title,category,author,body})
+                    .then(() =>{ toastr.success('Post edited successfully')})
+                    .catch(error => {toastr.error(error)}) 
  
-  
+ 
     this.props.action.closeModal()
   }
 
@@ -110,7 +96,7 @@ state = {
     console.log('post is', this.props.post)
     //const NEW = 'new'
     return(
-     <div className="Delete"  onClick={this.props.action.openModal(this.props.id)}>
+     <div className="Delete" onClick={() => this.props.action.openModal(this.props.id)} >
         edit
       <ReactModal style={modalStyles} isOpen={this.props.isOpen==this.props.id} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>

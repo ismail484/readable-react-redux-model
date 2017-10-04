@@ -26,19 +26,15 @@ export default function postsReducer (state =initialState.postsReducer,action){
       }
          
  case ActionType.EDIT_POST :
-      return [
-        ...state.filter(post => post.id !== action.post.id),
-        Object.assign({}, action.post)
-      ]
-case 'EDIT_POST':
       const currentEditPost = [...state.posts]
       const indexEdit = currentEditPost.findIndex(post => post.id === action.id)
       const { title, category, body, author } = action.post
       const newPostToEdit = Object.assign({}, currentEditPost[indexEdit], {
         title,
         category,
+        author,
         body,
-        author
+        
       })
       return {
         posts: [...currentEditPost.slice(0, indexEdit),

@@ -34,10 +34,7 @@ const modalStyles = {
   
   componentDidMount() { 
  
-    this.props.action.getCategories();
-    function getPostsAgain() { 
-    return  this.props.action.getPosts()
-    }
+    this.props.action.getCategories()
   }
 
 state = {
@@ -49,14 +46,10 @@ state = {
     success:false,
   }
  
-  // reset= (timestamp,title,category,author,body)=>this.setState({title: '',category:'',author:'',body:''})
 
 
 onPostClick() {
   const { title, category, author, body } = this.state
-
-   if(title&&category&&author&&body){
-  
      const newPost = {
       id: uuidv1(),
       timestamp: Date.now(),
@@ -71,24 +64,11 @@ onPostClick() {
         category:'',
         author:'',
         body:'',
-        success:true,
-        valid:true
    })).then(() =>{ toastr.success('Post saved')
                     }).catch(error => {
                 toastr.error(error);
             }); 
- }else{
-   this.setState({
-       
-    valid:false,
-    success :false
-   })
-
- }
-  //self.props.action.getPosts()
-  // this.props.action.getPosts()
-   // self.componentDidMount.getPostsAgain()
-  //this.reset()
+ 
     this.props.action.closeModal()
   }
 
@@ -120,7 +100,7 @@ onPostClick() {
   return (
   
     
-    <span className='darkBtn'  onClick={this.props.action.openModal(New)}>
+    <span className='darkBtn'  onClick={() => this.props.action.openModal(New)} >
       Add Post
       <ReactModal style={modalStyles} isOpen={this.props.isOpen==New} onRequestClose={this.props.action.closeModal}>
         <div className='newPostTop'>
