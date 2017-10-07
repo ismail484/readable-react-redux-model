@@ -27,3 +27,24 @@ export const addComment = (comment) =>
    headers: headers,
    body: JSON.stringify(comment)
   }).then(res => res.json())
+
+
+  // DELETE /comments/:id
+export const deleteComment = (id) => {
+  return fetch(`${api}/comments/${id}`, {
+    method: 'DELETE',
+    headers
+  }).then(data => data.json())
+}
+
+
+
+// PUT  /comments/:id
+export const editComment = (id,comment) => {
+  return fetch(`${api}/comments/${id}`, { 
+    method: 'PUT',
+    headers ,
+     body: JSON.stringify(comment)
+  }) .then(response => response.json())
+
+}

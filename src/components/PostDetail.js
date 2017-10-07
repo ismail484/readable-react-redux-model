@@ -5,6 +5,9 @@ import { addComment } from '../action/commentsAction'
 import { Link } from 'react-router-dom'
 import uuidv1 from 'uuid/v1'
 import '../../public/App.css'
+import {PostInfo} from './PostInfo'
+import CommentForm from './CommentForm'
+import CommentList from './CommentList'
 
 class PostDetail extends Component {
   state = {
@@ -21,8 +24,9 @@ class PostDetail extends Component {
     })
   }
 
-  onCommentSubmit = (e) => {
+   onCommentSubmit = (e) => {
     e.preventDefault();
+     if (this.state.bodyComment) {
     const newComment = {
       id: uuidv1(),
       timestamp: Date.now(),
@@ -30,58 +34,36 @@ class PostDetail extends Component {
       author: this.props.post.author,
       parentId: this.props.post.id
     } 
-
     // POST new comment
     this.props.addComment(newComment)
-  }
+    .then(() => {
+          this.setState({
+            bodyComment: ''
+          })
+  })
+  
+}//end od if
+  }//end of onCommentSubmit
 
   render() {
 
        console.log('post is',this.props.post)
     const { id } = this.props.match.params
-    const { author, body, category, title, voteScore,timestamp  } = this.props.post
-    let commentList = null
-     if (this.props.post.comments) {
-      commentList = this.props.post.comments.map(comment => {
-        return (
-          <li key={comment.id}>
-            {comment.body}
-            <a href="">edit</a>
-            <a href="">delete</a>
-          </li>
-        )
-      })
-    }
-
+    const { post } = this.props
+        
     return(
-     <div className="PostDetail">
-        <p>{author} Posted on {timestamp} </p>
-        <p>{body}</p>
-        <p>{category}</p>
-        <p>{title}</p>
-        <p>{voteScore}</p>
+      <div className="PostDetail">
+        <PostInfo post={post} />
         <hr/>
-
-       <form 
-          className="CommentForm"
-          onSubmit={this.onCommentSubmit}>
-            <textarea 
-                placeholder="Enter your comments..."
-                onChange={this.onInputChange} 
-                value={this.state.bodyComment}
-                name="comments" 
-                id="" 
-                cols="30" 
-                rows="5" />
-            <input 
-              className="Comment-Button"
-              value="Add Comment"
-              type="submit"/>
-        </form>
+        <CommentForm
+          bodyComment={this.state.bodyComment}
+          onCommentSubmit={this.onCommentSubmit}
+          onInputChange={this.onInputChange} />
         <hr/>
-        <ul>{commentList}</ul>
+        <CommentList comments={this.props.post.comments} />
+        <hr/>
+          <Link to={`/posts`}>Back to Home Page</Link>
       </div>
-
     )
   }
 }
@@ -90,7 +72,7 @@ const mapStateToProps = (state) => {
     const {postsReducer,commentsReducer}=state
   return {
     post: postsReducer.post,
-    comment:commentsReducer.comment
+    // comment:commentsReducer.comment
   }
 }
 

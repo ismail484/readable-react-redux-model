@@ -91,9 +91,6 @@ onPostClick() {
     
   }
 
-
-
-
   render() { 
    console.log('categories',this.props.categories)
    const New='new'
@@ -171,12 +168,12 @@ onPostClick() {
    
   return {
    
-  //postBody: modalReducer.postBody,
+
    isOpen: modalReducer.isOpen,
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts
-   //post: postsReducer.post
+   
  
 
 
@@ -197,17 +194,8 @@ const mapDispatchToProps = dispatch => ({
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
    history: PropTypes.object.isRequired,
- // post:PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
-//   action:PropTypes.PropTypes.object.isRequired,
-//   //updatePostBody: PropTypes.func.isRequired,
-   
-   
-//    //title: string.isRequired,
-//    //author: string.isRequired,
-//    //post:object.isRequired,
-//    // contentLabel: string.isRequired,
-//     //postFanout:func.isRequired
+
 
  } 
 

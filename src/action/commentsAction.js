@@ -25,6 +25,50 @@ export function addComment(comment) {
   };
 }
 
+//Delete Comment
+export function deleteCommentSuccess (id) {
+  return {
+    type: ActionType.DELETE_COMMENT,
+    id,
+  }
+}
+
+export function deleteComment(id) {
+  return function(dispatch) {
+    return CommentsApi.deleteComment(id).then(() => {
+     // console.log(`Deleted ${comment.id}`)
+      dispatch(deleteCommentSuccess(id));
+      return;
+    }).catch(error => {
+      throw(error);
+    })
+  }
+}
+
+
+//Edit Comment
+export function editCommentSuccess (id,comment) {
+  return {
+    type: ActionType.EDIT_COMMENT,
+    id,
+    comment
+  }
+}
+
+
+export function editComment(id,comment) {
+   return function (dispatch) {
+     return CommentsApi.editComment(id,comment).then(comment => {
+       dispatch(editCommentSuccess(id,comment));
+       return comment;
+     }).catch(error => {
+       throw(error);
+     });
+   };
+ }
+
+
+
 
 
 export function getAllCommentstSuccess (id,comments) {
@@ -58,12 +102,7 @@ export function updateCommentSuccess (comment) {
 }
 
 
-export function deleteCommentSuccess (id) {
-  return {
-    type: ActionType.DELETE_COMMENT,
-    id,
-  }
-}
+
 
 export function upVoteCommentSuccess (id) {
   return {
@@ -108,17 +147,7 @@ export function updateComment(comment) {
 
 
 
-export function deleteComment(id) {
-  return function(dispatch) {
-    return CommentsApi.deleteComment(id).then(() => {
-     // console.log(`Deleted ${comment.id}`)
-      dispatch(deleteCommentSuccess(id));
-      return;
-    }).catch(error => {
-      throw(error);
-    })
-  }
-}
+
 export function downVoteComment(id) {
    return function(dispatch) {
      return CommentsApi.voteComment(id,"downVote").then(() => {

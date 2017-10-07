@@ -88,6 +88,50 @@ case ActionType.GET_POSTS_FOR_CATEGORY:
         posts: action.posts
       }
 
+case ActionType.LOAD_COMMENTS_FOR_POST :
+         
+      return Object.assign([], state, action.comments)
+
+
+    case ActionType.ADD_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: [...state.post.comments, action.comment]
+        }
+      }
+
+
+  case ActionType.DELETE_COMMENT:
+      const comments = [...state.post.comments]
+      const indexComment = comments.findIndex(comment => comment.id === action.id)
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: [...comments.slice(0, indexComment), 
+          ...comments.slice(indexComment + 1)]
+        }
+      }
+
+
+
+      case ActionType.EDIT_COMMENT:
+      const editComments = [...state.post.comments]
+      const indexEditComment = editComments.findIndex(comment => comment.id === action.id)
+    //  const { body, timestamp } = action.comment
+      const newCommentToEdit = Object.assign({}, editComments[indexEditComment],  
+        action.comment
+      )
+      return {
+        ...state, 
+        post: {
+          ...state.post, 
+          comments: [...editComments.slice(0, indexEditComment),
+          newCommentToEdit, ...editComments.slice(indexEditComment + 1)]
+        }
+      }
 
 default :
       return state

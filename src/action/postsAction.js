@@ -83,7 +83,7 @@ export function getPostSuccess(post,comments) {
   export function editPost(id,post) {
    return function (dispatch) {
      return PostsApi.editPost(id,post).then(post => {
-       dispatch(editPostSuccess(post));
+       dispatch(editPostSuccess(id,post));
        return post;
      }).catch(error => {
        throw(error);

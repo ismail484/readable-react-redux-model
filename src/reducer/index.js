@@ -13,7 +13,7 @@ const rootReducer= combineReducers({
     modalReducer,
     postsReducer,
     categoriesReducer,
-    commentsReducer,
+  //  commentsReducer,
     sortedReducer
     
       
