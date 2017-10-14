@@ -1,0 +1,64 @@
+/* Posts component */
+.Posts {
+  width: 70vw;
+  margin: 0 auto;
+  padding-top: 3em;
+}
+
+.SortBy {
+  margin-bottom: 30px;
+}
+
+/* Post component */
+.Post {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  display: flex;
+}
+
+.Title-PostInfo-Container {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.Title-PostInfo {
+  margin-left: 10px;
+}
+
+.PostInfo {
+  display: flex;
+  font-size: .9em;
+  color: #8A8585;
+  padding-top: .2em;
+  padding-bottom: .2em;
+}
+
+.Title,
+.Delete,
+.Up,
+.Down {
+  cursor: pointer;
+}
+
+.Total-Comments,
+.Edit,
+.Delete {
+  margin: 0 6px;
+}
+
+.Author {
+  margin-right: .5em;
+  padding: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .Posts {
+    width: 65vw;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .Posts {
+    width: 50vw;
+  }
+}
