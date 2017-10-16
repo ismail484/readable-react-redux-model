@@ -41,20 +41,16 @@ class CommentList extends Component {
 
   onClickUpVote = (id) => {
     this.props.upVoteComment(id)
-    // this.setState({
-    //   score: this.state.score + 1
-    // })
+    
   }
 
   onClickDownVote = (id) => {
     this.props.downVoteComment(id)
-    // this.setState({
-    //   score: this.state.score - 1
-    // })
+    
   }
 
   render() {
-
+ 
     let commentList = null
 
    //  Ordered by voteScore (highest first)
@@ -67,6 +63,7 @@ class CommentList extends Component {
         }
         return 0
       }).map(comment => (
+       
         <li 
           key={comment.id}>
           <div className="Comment-Container">

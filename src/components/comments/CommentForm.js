@@ -8,7 +8,7 @@ export default class CommentForm extends Component {
         <form
           onSubmit={this.props.onCommentSubmit}>
             <textarea className="commentText"
-                placeholder="Enter your comments..."
+                placeholder="Please Enter your comments..."
                 onChange={this.props.onInputChange} 
                 value={this.props.bodyComment}
                 name="comments" 
@@ -17,7 +17,7 @@ export default class CommentForm extends Component {
                 rows="5" />
             <input 
               className="Comment-Button"
-              value="Add Comment"
+              value="Please Add Comment"
               type="submit"/>
         </form>
       </div> 
