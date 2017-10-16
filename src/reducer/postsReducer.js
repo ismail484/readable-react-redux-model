@@ -3,9 +3,6 @@ import initialState from './initialState'
 
 
 
-
-
-//initialState.posts
 export default function postsReducer (state =initialState.postsReducer,action){
   
     //new state
