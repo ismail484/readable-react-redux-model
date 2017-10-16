@@ -91,17 +91,6 @@ case ActionType.DOWN_VOTE_POST:
         posts: [...currentPostDownVote]
       }
 
-case ActionType.GET_POSTS_FOR_CATEGORY:
-      return {
-        ...state,
-        posts: action.posts
-      }
-
-case ActionType.LOAD_COMMENTS_FOR_POST :
-         
-      return Object.assign([], state, action.comments)
-
-
     case ActionType.ADD_COMMENT:
       return {
         ...state,

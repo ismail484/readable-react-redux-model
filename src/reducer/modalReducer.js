@@ -3,11 +3,6 @@ import initialState from './initialState'
 
 
 
-// const initialState = {
-//   postBody: '',
-//   isOpen: false,
-// }
-
 export default function modalReducer (state = initialState.modalReducer, action) {
   switch (action.type) {
     case ActionType.OPEN_MODAL :
