@@ -59,6 +59,6 @@ export const voteComment = (id, option) => {
     body: JSON.stringify({
       option: option
     })
-  })
-  .then(data => data.json())
+  }).then(data => data.json())
 }
+
