@@ -69,18 +69,19 @@ export function editComment(id,comment) {
 
 
 //down Vote comment
-export function downVoteCommentSuccess (id) {
+export function downVoteCommentSuccess (id,parentId,voteScore) {
   return {
-    type: ActionType.DOWN_VOTE_POST,
+    type: ActionType.DOWN_VOTE_COMMENT,
     id,
+    parentId,
+    voteScore
   }
 }
 
 export function downVoteComment(id) {
    return function(dispatch) {
-     return CommentsApi.voteComment(id,"downVote").then(() => {
-   dispatch(downVoteCommentSuccess( id));
-      return id;
+     return CommentsApi.voteComment(id,"downVote").then((comment) => {
+   dispatch(downVoteCommentSuccess(comment.id,comment.parentId,comment.voteScore));
     }).catch(error => {
       throw(error);
     });
@@ -88,18 +89,19 @@ export function downVoteComment(id) {
 }
 
 //upvote  comment
-export function upVoteCommentSuccess (id) {
+export function upVoteCommentSuccess (id,parentId,voteScore) {
   return {
     type: ActionType.UP_VOTE_COMMENT,
     id,
+    parentId,
+    voteScore
   }
 }
 
 export function upVoteComment(id) {
    return function(dispatch) {
-     return CommentsApi.voteComment(id,"upVote").then(() => {
-   dispatch(upVoteCommentSuccess(id));
-      return id;
+     return CommentsApi.voteComment(id,"upVote").then((comment) => {
+   dispatch(upVoteCommentSuccess(comment.id,comment.parentId,comment.voteScore));
     }).catch(error => {
       throw(error);
     });
