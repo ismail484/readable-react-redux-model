@@ -68,85 +68,13 @@ export function editComment(id,comment) {
  }
 
 
-
-
-
-export function getAllCommentstSuccess (id,comments) {
-  return {
-    type: ActionType.GET_All_COMMENTS,
-    id,
-    comments
-  }
-}
-
-
-export function loadCommentsForPostSuccess (id) {
-  return {
-    type: ActionType.LOAD_COMMENTS_FOR_POST,
-    id,
-  }
-}
-
-
-
-
-
-
-
-
-export function updateCommentSuccess (comment) {
-  return {
-    type: ActionType.EDIT_COMMENT,
-    comment,
-  }
-}
-
-
-
-
-export function upVoteCommentSuccess (id) {
-  return {
-    type: ActionType.UP_VOTE_COMMENT,
-    id,
-  }
-}
-
+//down Vote comment
 export function downVoteCommentSuccess (id) {
   return {
     type: ActionType.DOWN_VOTE_POST,
     id,
   }
 }
-
-
-
-
-
-export function loadcommentsForPost(postId) {
-  // make async call to api, handle promise, dispatch action when promise is resolved
-  return function(dispatch) {
-    return CommentsApi.getAllCommentsForPost().then(responseComment => {
-      dispatch(loadCommentsForPostSuccess(responseComment));
-    }).catch(error => {
-      throw(error);
-    });
-  };
-}
-
-
-
-export function updateComment(comment) {
-  return function (dispatch) {
-    return CommentsApi.updateComment(comment).then(responseComment => {
-      dispatch(updateCommentSuccess(responseComment));
-    }).catch(error => {
-      throw(error);
-    });
-  };
-}
-
-
-
 
 export function downVoteComment(id) {
    return function(dispatch) {
@@ -157,6 +85,14 @@ export function downVoteComment(id) {
       throw(error);
     });
   };
+}
+
+//upvote  comment
+export function upVoteCommentSuccess (id) {
+  return {
+    type: ActionType.UP_VOTE_COMMENT,
+    id,
+  }
 }
 
 export function upVoteComment(id) {

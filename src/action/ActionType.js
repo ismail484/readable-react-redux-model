@@ -10,7 +10,6 @@ export const DELETE_POST = 'DELETE_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const UP_VOTE_POST = 'UP_VOTE_POST'
 export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
-export const GET_POSTS_FOR_CATEGORY = 'GET_POSTS_FOR_CATEGORY'
 export const DELETE_POSTS = 'DELETE_POSTS'
 
 
@@ -20,9 +19,7 @@ export const Sorted_Action = 'Sorted_Action'
 export const SORTED_COMMENTS = 'SORTED_COMMENTS'
 
 //COMMENTS
-export const GET_All_COMMENTS = 'GET_All_COMMENTS'
 
-export const LOAD_COMMENTS_FOR_POST = 'LOAD_COMMENTS_FOR_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
