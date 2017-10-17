@@ -140,12 +140,16 @@ export function upVotePostSuccess (id) {
  export function downVotePost(id) {
     return function(dispatch) {
       return PostsApi.votePost(id,"downVote").then(() => {
-    dispatch(downVotePostSuccess( id));
+    dispatch(downVotePostSuccess(id))
      }).catch(error => {
        throw(error);
      });
    };
  }
+
+
+
+
 
 export const deletePosts = () => ({
   type: ActionType.DELETE_POSTS
@@ -172,3 +176,6 @@ export function removePost(id) {
      })
    }
  }
+
+
+ 
