@@ -5,7 +5,7 @@ import Up from './Up'
 import Down from './Down'
 import Score from './Score'
 
-class Vote extends Component {
+class Voting extends Component {
   render() {
     return(
       <div className="Vote">
@@ -17,4 +17,4 @@ class Vote extends Component {
   }
 }
 
-export default Vote
+export default Voting

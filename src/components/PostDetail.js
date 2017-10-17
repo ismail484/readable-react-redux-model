@@ -53,14 +53,14 @@ class PostDetail extends Component {
         
     return(
       <div className="PostDetail">
-        <PostInfo post={post} />
+       {this.props.post && <PostInfo post={post} /> }
         <hr/>
-        <CommentForm
+       {this.props.post && <CommentForm
           bodyComment={this.state.bodyComment}
           onCommentSubmit={this.onCommentSubmit}
-          onInputChange={this.onInputChange} />
+          onInputChange={this.onInputChange} /> }
         <hr/>
-        <CommentList comments={this.props.post.comments} />
+        {this.props.post && <CommentList comments={this.props.post.comments} />}
         <hr/>
           <Link to={`/posts`}>Back to Home Page</Link>
       </div>
@@ -72,7 +72,6 @@ const mapStateToProps = (state) => {
     const {postsReducer,commentsReducer}=state
   return {
     post: postsReducer.post,
-    // comment:commentsReducer.comment
   }
 }
 

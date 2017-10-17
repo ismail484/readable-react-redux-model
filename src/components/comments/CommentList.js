@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Comment from './Comment'
-import Vote from '../Voting/'
+import Voting from '../Voting/'
 import { deleteComment,editComment,upVoteComment,downVoteComment} from '../../action/commentsAction'
 
 
@@ -10,16 +10,9 @@ class CommentList extends Component {
    state = {
     edit: false,
     editId: '', 
-     //score: 0
   }
 
-  //  componentDidMount() {
 
-  //   const { voteScore } = this.props.post.voteScore
-  //   this.setState({
-  //     score: voteScore
-  //   })
-  // } 
 
   onDelete = (id) => {
     this.props.deleteComment(id)
@@ -67,7 +60,7 @@ class CommentList extends Component {
         <li 
           key={comment.id}>
           <div className="Comment-Container">
-            <Vote 
+            <Voting 
               id={comment.id}
               score={comment.voteScore}
               onClickUpVote={this.onClickUpVote} 
@@ -96,7 +89,7 @@ class CommentList extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteComment: (id) => dispatch(deleteComment(id)),
-    editComment: (id, comment) => dispatch(editComment(id, comment)),
+    editComment: (id, comment) => dispatch(editComment(id,comment)),
     upVoteComment: (id) => dispatch(upVoteComment(id)),
     downVoteComment: (id) => dispatch(downVoteComment(id))
   }

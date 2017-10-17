@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link ,Redirect   } from 'react-router-dom'
 import Voting from './Voting/'
-import {  removePost,upVotePost, downVotePost} from '../action/postsAction'
-import {  getCategories} from '../action/categoriesAction'
+import {removePost,upVotePost, downVotePost} from '../action/postsAction'
+import { getCategories} from '../action/categoriesAction'
 import  Edit  from './post/Edit'
 import { Delete } from './post/Delete'
 import toastr from 'toastr'
@@ -11,6 +11,7 @@ import moment from 'moment'
 
 
 class PostInfo extends Component {
+  
 
 componentDidMount() { 
  
@@ -44,23 +45,23 @@ componentDidMount() {
   }
 
 
-
   render() {
 
     const { id, author, body, category, title, voteScore, timestamp } = this.props.post
 
     console.log('voteScore',voteScore)
+    console.log('title',title)
     if (this.state.deleted) {
       return (<Redirect to='/posts' />)
     }else{
     return(
       <div className="Post-Info">
         <div className="Post-Info-Vote">
-          <Voting 
+           <Voting 
             id={id}
             score={voteScore}
             onClickUpVote={this.onClickUpVote} 
-            onClickDownVote={this.onClickDownVote} />
+            onClickDownVote={this.onClickDownVote} /> 
         </div>
         <div className="Post-Info-Container">
           <div className="Post-Info-Title">
