@@ -124,7 +124,6 @@ export function upVotePostSuccess (id) {
     return function(dispatch) {
       return PostsApi.votePost(id,"upVote").then(() => {
     dispatch(upVotePostSuccess(id));
-       return id;
      }).catch(error => {
        throw(error);
      });
@@ -142,7 +141,6 @@ export function upVotePostSuccess (id) {
     return function(dispatch) {
       return PostsApi.votePost(id,"downVote").then(() => {
     dispatch(downVotePostSuccess( id));
-       return id;
      }).catch(error => {
        throw(error);
      });
