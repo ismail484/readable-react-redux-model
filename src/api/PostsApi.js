@@ -47,7 +47,7 @@ export const votePost = (id, option) => {
     body: JSON.stringify({
       option: option
     })
-  })
+  }).then(res => res.json())
 }
 
 
