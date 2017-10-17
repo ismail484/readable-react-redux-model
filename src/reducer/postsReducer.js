@@ -36,10 +36,16 @@ export default function postsReducer (state =initialState.postsReducer,action){
         body,
         
       })
-      return {
-        posts: [...currentEditPost.slice(0, indexEdit),
-        newPostToEdit, ...currentEditPost.slice(indexEdit + 1)]
-      }
+      console.log('newPostToEdit', newPostToEdit)
+
+      return { 
+        post: newPostToEdit, 
+        posts: [...currentEditPost.slice(0, indexEdit), newPostToEdit, ...currentEditPost.slice(indexEdit + 1)] }
+      // return {
+       
+      //   posts: [...currentEditPost.slice(0, indexEdit),
+      //   newPostToEdit, ...currentEditPost.slice(indexEdit + 1)]
+      // }
 
 
     case ActionType.GET_POST :
@@ -93,10 +99,18 @@ case ActionType.DELETE_POSTS :
 //       // return {
 //       //   posts: [...currentPostUpVote]
 //       // }
+// case ActionType.UP_VOTE_POST:
+// return {...state, posts: [...state.posts.filter(item => item.id !== action.post.id), action.post]}
+// case ActionType.DOWN_VOTE_POST:
+
+// return {...state, posts: [...state.posts.filter(item => item.id !== action.post.id), action.post]}
+
+
 
  case ActionType.DOWN_VOTE_POST:
   const downVotePosts = get('posts', state) // basically same as state.posts
   const indexDown= downVotePosts.findIndex(post => post.id === action.id) // same as before
+  console.log('action.id:',action.id)
   const downVotePostsScore = get([indexDown, 'voteScore'], downVotePosts) // gets the vote score
   const down = set([indexDown, 'voteScore'], downVotePostsScore - 1, downVotePosts) // this sets the post voteScore to 1 more than it originally was, without changing the original value
   return flow( // flow is a way to chain functions together, it's a shortcut for set('post, c[indexUp], set('posts', c, state))
