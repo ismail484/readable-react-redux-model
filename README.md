@@ -3,6 +3,9 @@
 # Project: readable-react-redux - [Mohamed Ismail]
 
 # Description
+  - A Web Contents and Comments Application using ReactJs, ReduxJs .
+  - Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+  - This content and comment structure is common across a large number of websites and applications.
   
   ### First open [MyReadable](http://localhost:3000/) to discover, how app works .
   -I use here `redux-model` to add posts .
