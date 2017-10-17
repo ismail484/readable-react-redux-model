@@ -14,16 +14,16 @@ import toastr from 'toastr'
 
 
 class Post extends Component {
-  state = {
-    score: 0
-  }
+  // state = {
+  //   score: 0
+  // }
 
    componentDidMount() {
 
-    const { voteScore } = this.props.post
-    this.setState({
-      score: voteScore
-    })
+    // const { voteScore } = this.props.post
+    // this.setState({
+    //   score: voteScore
+    // })
   }
 
   //  onClickEdit = (id,post) => {
@@ -40,23 +40,23 @@ class Post extends Component {
 
   onClickUpVote = (id) => {
     this.props.upVotePost(id)
-    this.setState({
-      score: this.state.score + 1
-    })
+    // this.setState({
+    //   score: this.state.score + 1
+    // })
   }
 
   onClickDownVote = (id) => {
     this.props.downVotePost(id)
-    this.setState({
-      score: this.state.score - 1
-    })
+    // this.setState({
+    //   score: this.state.score - 1
+    // })
   }
 
  
 
   render() {
-    const { body, title, author, id } = this.props.post
-    const { score } = this.state
+    const { body,voteScore, title, author, id } = this.props.post
+    // const { score } = this.state
     const posts = this.props.posts
     const index= posts.findIndex(post => post.id === id)
     const count = posts[index].comments 
@@ -67,7 +67,7 @@ class Post extends Component {
       <div className="Post">
         <Voting 
           id={id}
-          score={score}
+          score={voteScore}
           onClickDownVote={this.onClickDownVote}
           onClickUpVote={this.onClickUpVote} />
         <div className="Title-PostInfo-Container">
