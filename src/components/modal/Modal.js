@@ -168,17 +168,10 @@ onPostClick() {
   const postBodyLength = modalReducer.postBody.length
    
   return {
-   
-
    isOpen: modalReducer.isOpen,
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts
-   
- 
-
-
-  
   }
 }
 
@@ -188,13 +181,10 @@ const mapDispatchToProps = dispatch => ({
 
  const { object, string, func, bool,array } = PropTypes
    Modal.PropTypes = {
-   postBody: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
-   isSubmitDisabled: PropTypes.bool.isRequired,
    categories: PropTypes.array.isRequired,
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
-   history: PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
 
 

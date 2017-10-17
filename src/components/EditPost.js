@@ -115,6 +115,8 @@ state = {
  
   
     this.props.action.closeModal()
+ 
+    
   }
 
   render() {

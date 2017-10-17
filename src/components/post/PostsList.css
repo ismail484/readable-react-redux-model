@@ -27,8 +27,8 @@
 
 .PostInfo {
   display: flex;
-  font-size: .9em;
-  color: #8A8585;
+  font-size: .15em;
+  color: #00ff00;
   padding-top: .2em;
   padding-bottom: .2em;
 }
@@ -51,14 +51,3 @@
   padding: 0;
 }
 
-@media screen and (min-width: 600px) {
-  .Posts {
-    width: 65vw;
-  }
-}
-
-@media screen and (min-width: 900px) {
-  .Posts {
-    width: 50vw;
-  }
-}

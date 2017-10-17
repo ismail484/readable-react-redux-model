@@ -15,6 +15,7 @@ import * as postsActionCreators from '../../action/postsAction'
 import * as categoriesActionCreators from '../../action/categoriesAction'
 import uuidv1 from 'uuid/v1'
 import toastr from 'toastr'
+import { Link ,Redirect   } from 'react-router-dom'
 
 
 const modalStyles = {
@@ -38,16 +39,6 @@ state = {
     category: '',
     
   }
-
-  // componentDidMount() {
-  //   const { id } = this.props
-  //   console.log('id',id)
-  //   this.props.action.getPost(id)
-  //     .then(() => {
-  //          const { title, author, body, category, voteScore } = this.props.post
-  //       console.log('category',category)
-  //     })
-  // }
 
   componentWillReceiveProps (nextProps) {
     const { id,title, author, body, category, voteScore } = nextProps.post
@@ -85,10 +76,12 @@ state = {
   
   this.props.action.editPost(id,{title,category,author,body})
                     .then(() =>{ toastr.success('Post edited successfully')})
+                    .then(() =>{ (<Redirect to = '/posts' />)})
                     .catch(error => {toastr.error(error)}) 
  
- 
+
     this.props.action.closeModal()
+      
   }
 
   render() {
@@ -164,17 +157,10 @@ function mapStateToProps (state,ownProps) {
 
    
   return {
-   
-  //postBody: modalReducer.postBody,
    isOpen: modalReducer.isOpen,
    isSubmitDisabled: postBodyLength <= 0 || postBodyLength > 140,
    categories:categoriesReducer.categories,
    posts:postsReducer.posts,
-   //post:postsReducer.post
- 
-
-
-  
   }
 }
 
@@ -184,18 +170,13 @@ const mapDispatchToProps = dispatch => ({
 
 const { object, string, func, bool,array } = PropTypes
    Edit.PropTypes = {
-   postBody: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
-   isSubmitDisabled: PropTypes.bool.isRequired,
    categories: PropTypes.array.isRequired,
     action:PropTypes.object.isRequired,
    closeModal: PropTypes.func.isRequired,
-   history: PropTypes.object.isRequired,
    openModal: PropTypes.func.isRequired,
    id:  PropTypes.object.isRequired,
    post:PropTypes.object.isRequired,
-   onClickEdit: PropTypes.func.isRequired,
-
 
  } 
 
