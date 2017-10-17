@@ -1,5 +1,8 @@
-import * as ActionType from '../action/ActionType';
+import * as ActionType from '../action/ActionType'
 import initialState from './initialState'
+import get from 'lodash/fp/get'
+import set from 'lodash/fp/set'
+import flow from 'lodash/fp/flow'
 
 
 
@@ -70,23 +73,49 @@ case ActionType.DELETE_POSTS :
         posts: []
     }
 
-case ActionType.UP_VOTE_POST:
-      const currentPostUpVote = [...state.posts]
-      const indexUp= currentPostUpVote.findIndex(post => post.id === action.id)
-      currentPostUpVote[indexUp].voteScore = currentPostUpVote[indexUp].voteScore + 1
-      return {
-        posts: [...currentPostUpVote]
-      }
+//     get will get a certain property/path from an object or array, and set will set a certain property/path in an object or array, except it won't change the original object
+// And that's the key here -- immutability
+
+    case ActionType.UP_VOTE_POST:
+  const upVotePosts = get('posts', state) // basically same as state.posts
+  const indexUp= upVotePosts.findIndex(post => post.id === action.id) // same as before
+  const upVotePostsScore = get([indexUp, 'voteScore'], upVotePosts) // gets the vote score
+  const up = set([indexUp, 'voteScore'], upVotePostsScore + 1, upVotePosts) // this sets the post voteScore to 1 more than it originally was, without changing the original value
+  return flow( // flow is a way to chain functions together, it's a shortcut for set('post, c[indexUp], set('posts', c, state))
+    set('posts', up), // sets the 'posts' property of state to c, _immutably_
+    set('post', up[indexUp]) // sets the 'post' property of state to c[indexUp], immutably 
+  )(state)
+
+// case ActionType.UP_VOTE_POST:
+//       const currentPostUpVote = [...state.posts]
+//       const indexUp= currentPostUpVote.findIndex(post => post.id === action.id)
+//       currentPostUpVote[indexUp].voteScore = currentPostUpVote[indexUp].voteScore + 1
+//       // return {
+//       //   posts: [...currentPostUpVote]
+//       // }
+
+ case ActionType.DOWN_VOTE_POST:
+  const downVotePosts = get('posts', state) // basically same as state.posts
+  const indexDown= downVotePosts.findIndex(post => post.id === action.id) // same as before
+  const downVotePostsScore = get([indexDown, 'voteScore'], downVotePosts) // gets the vote score
+  const down = set([indexDown, 'voteScore'], downVotePostsScore - 1, downVotePosts) // this sets the post voteScore to 1 more than it originally was, without changing the original value
+  return flow( // flow is a way to chain functions together, it's a shortcut for set('post, c[indexUp], set('posts', c, state))
+    set('posts', down), // sets the 'posts' property of state to c, _immutably_
+    set('post', down[indexDown]) // sets the 'post' property of state to c[indexUp], immutably 
+  )(state)
 
 
-case ActionType.DOWN_VOTE_POST:
+
+// case ActionType.DOWN_VOTE_POST:
    
-    const currentPostDownVote = [...state.posts]
-      const indexDown= currentPostDownVote.findIndex(post => post.id === action.id)
-      currentPostDownVote[indexDown].voteScore = currentPostDownVote[indexDown].voteScore - 1
-      return {
-        posts: [...currentPostDownVote]
-      }
+//     const currentPostDownVote = [...state.posts]
+//       const indexDown= currentPostDownVote.findIndex(post => post.id === action.id)
+//       currentPostDownVote[indexDown].voteScore = currentPostDownVote[indexDown].voteScore - 1
+//       // return {
+//       //   posts: [...currentPostDownVote]
+//       // }
+
+
 
     case ActionType.ADD_COMMENT:
       return {
