@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component , PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { getPost } from '../action/postsAction'
+import { getPost ,getPosts} from '../action/postsAction'
 import { addComment } from '../action/commentsAction'
 import { Link } from 'react-router-dom'
 import uuidv1 from 'uuid/v1'
@@ -13,10 +13,18 @@ class PostDetail extends Component {
   state = {
     bodyComment: ''
   }
+
+
   componentDidMount() {
     const { id } = this.props.match.params
     this.props.getPost(id)
+    
   }
+componentDidUpdate() {
+    if(this.props.posts.length > 0 && !this.props.post) {
+        this.props.history.push('/404');
+    }
+}
 
   onInputChange = (e) => {
     this.setState({
@@ -72,14 +80,23 @@ const mapStateToProps = (state) => {
     const {postsReducer,commentsReducer}=state
   return {
     post: postsReducer.post,
+    posts:postsReducer.posts,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getPost: (id) => dispatch(getPost(id)),
+    getPosts: () => dispatch(getPosts()),
     addComment:(comment)=>dispatch(addComment(comment))
   }
 }
+
+PostDetail.propTypes = {
+    
+    history: PropTypes.object,
+  
+};
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)
