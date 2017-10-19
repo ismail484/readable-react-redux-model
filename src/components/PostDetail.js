@@ -14,29 +14,30 @@ class PostDetail extends Component {
     bodyComment: ''
   }
 
+componentDidMount() {
+    const { id } = this.props.match.params
+    this.props.getPost(id)
+    this.props.getPosts()
+    
+  }
+
+
 componentDidUpdate() {
   
-  const { id } = this.props.match.params
-     this.props.getPost(id)
-/    this.props.getPosts()
-
-  if(this.props.posts.length > 0 && !this.props.post) { this.props.history.push('/404'); }
+  if(!this.props.post ) { 
+    this.props.history.push('/404')
+   console.log('post is', this.props.post) }
   
   }
 
-componentDidUpdate() { if(this.props.posts.length > 0 && !this.props.post) {
-   this.props.history.push('/404'); }
-  console.log('post is', this.props.post)
+// componentDidUpdate() { if(this.props.posts.length > 0 && !this.props.post) {
+//    this.props.history.push('/404'); }
+//   console.log('post is', this.props.post)
   
-  }
-
-
-//   componentDidMount() {
-//     const { id } = this.props.match.params
-//     this.props.getPost(id)
-//     this.props.getPosts()
-    
 //   }
+
+
+  
 // componentDidUpdate() {
 //     if(this.props.posts.length > 0 && !this.props.post) {
 //         this.props.history.push('/404');
