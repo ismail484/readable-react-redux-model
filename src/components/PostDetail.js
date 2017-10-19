@@ -14,17 +14,35 @@ class PostDetail extends Component {
     bodyComment: ''
   }
 
-
-  componentDidMount() {
+componentDidMount() {
     const { id } = this.props.match.params
     this.props.getPost(id)
+    this.props.getPosts()
     
   }
+
+
 componentDidUpdate() {
-    if(this.props.posts.length > 0 && !this.props.post) {
-        this.props.history.push('/404');
-    }
-}
+  
+  if(!this.props.post ) { 
+    this.props.history.push('/404')
+   console.log('post is', this.props.post) }
+  
+  }
+
+// componentDidUpdate() { if(this.props.posts.length > 0 && !this.props.post) {
+//    this.props.history.push('/404'); }
+//   console.log('post is', this.props.post)
+  
+//   }
+
+
+  
+// componentDidUpdate() {
+//     if(this.props.posts.length > 0 && !this.props.post) {
+//         this.props.history.push('/404');
+//     }
+// }
 
   onInputChange = (e) => {
     this.setState({
@@ -76,13 +94,21 @@ componentDidUpdate() {
   }
 }
 
-const mapStateToProps = (state) => {
-    const {postsReducer,commentsReducer}=state
-  return {
-    post: postsReducer.post,
-    posts:postsReducer.posts,
-  }
-}
+// const mapStateToProps = (state,ownProps) => {
+//     const {postsReducer,commentsReducer}=state
+//   return {
+//    // post: postsReducer.post,
+//    // posts:postsReducer.posts
+//     post: postsReducer.posts
+//         .filter(post => post.id === ownProps.match.params.id)[0],
+//   }
+// }
+const mapStateToProps = (state,ownProps) => {
+   const {postsReducer,commentsReducer}=state 
+return { 
+  post: postsReducer.posts.filter(post => post.id === ownProps.match.params.id && !post.deleted)[0], 
+  posts:postsReducer.posts.filter(post => !post.deleted), } }
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
