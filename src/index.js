@@ -17,13 +17,6 @@ import reducer from './reducer'
 import modalReducer from './reducer/modalReducer'
 import { createStore, applyMiddleware, compose } from 'redux'
 import registerServiceWorker from './registerServiceWorker'
-import ReactDOM from 'react-dom'; 
-import { BrowserRouter } from 'react-router-dom';
-
-
-
-
-
 
 
 const store = configureStore()
@@ -37,14 +30,12 @@ const store = configureStore()
 //   )
 // )
 
-ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'))
 
 
-
-// render(
-//     // <Provider store={store}>
-//     //     <App />
-//     // </Provider>,
-//     // document.getElementById('root')
-// );
-// registerServiceWorker()
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
+registerServiceWorker()
