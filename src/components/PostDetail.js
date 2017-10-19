@@ -23,12 +23,12 @@ class PostDetail extends Component {
 
 
 componentDidUpdate() {
-  
-  if(!this.props.post ) { 
-    this.props.history.push('/404')
-   console.log('post is', this.props.post) }
-  
-  }
+
+if(this.props.posts.length > 0 && !this.props.post ) { 
+  this.props.history.push('/404') 
+  console.log('post is', this.props.post) }
+
+}
 
    componentDidMount() {
     const { id } = this.props.match.params
