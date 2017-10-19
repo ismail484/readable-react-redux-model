@@ -14,6 +14,7 @@ class PostDetail extends Component {
     bodyComment: ''
   }
 
+<<<<<<< HEAD
 componentDidMount() {
     const { id } = this.props.match.params
     this.props.getPost(id)
@@ -38,6 +39,31 @@ componentDidUpdate() {
 
 
   
+=======
+componentDidUpdate() {
+  
+  const { id } = this.props.match.params
+     this.props.getPost(id)
+/    this.props.getPosts()
+
+  if(this.props.posts.length > 0 && !this.props.post) { this.props.history.push('/404'); }
+  
+  }
+
+componentDidUpdate() { if(this.props.posts.length > 0 && !this.props.post) {
+   this.props.history.push('/404'); }
+  console.log('post is', this.props.post)
+  
+  }
+
+
+//   componentDidMount() {
+//     const { id } = this.props.match.params
+//     this.props.getPost(id)
+//     this.props.getPosts()
+    
+//   }
+>>>>>>> 9ff2447e60f661c2ab515128fbc762e5bd779e7d
 // componentDidUpdate() {
 //     if(this.props.posts.length > 0 && !this.props.post) {
 //         this.props.history.push('/404');
