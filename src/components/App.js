@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Router as Router, Route, Switch } from 'react-router-dom'
 import PageNotFound from './common/PageNotFound'
-import Home from './landing/Home'
 import Posts from './post/Posts' 
 import createBrowserHistory from 'history/createBrowserHistory'
 import HeaderNavContainer from './landing/HeaderNavContainer'
@@ -26,11 +25,12 @@ render(){
                <HeaderNavContainer/>  
                     
                     <Switch>
-                        <Route exact path="/" component={Home} />
-                         <Route path="/about" component={About} />
-                        <Route path="/posts" component={Posts} />
-                        <Route exact path ='/:category' component={PostsList} />
-                        <Route exact path ='/:category/:id' component={PostDetail} />
+                         <Route exact path="/" component={Posts} /> 
+                        <Route exact  path="/posts" component={Posts} />
+                         <Route exact path="/about" component={About} />
+                        <Route  path ='/:category' component={PostsList} />
+                        <Route  path ='/:category/:id' component={PostDetail} />
+                        <Route  component={PageNotFound} />
                     </Switch>
 
                 </div>
