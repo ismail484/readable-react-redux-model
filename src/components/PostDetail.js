@@ -18,6 +18,7 @@ class PostDetail extends Component {
   componentDidMount() {
     const { id } = this.props.match.params
     this.props.getPost(id)
+    this.props.getPosts()
     
   }
 componentDidUpdate() {
@@ -76,13 +77,21 @@ componentDidUpdate() {
   }
 }
 
-const mapStateToProps = (state) => {
-    const {postsReducer,commentsReducer}=state
-  return {
-    post: postsReducer.post,
-    posts:postsReducer.posts,
-  }
-}
+// const mapStateToProps = (state,ownProps) => {
+//     const {postsReducer,commentsReducer}=state
+//   return {
+//    // post: postsReducer.post,
+//    // posts:postsReducer.posts
+//     post: postsReducer.posts
+//         .filter(post => post.id === ownProps.match.params.id)[0],
+//   }
+// }
+const mapStateToProps = (state,ownProps) => {
+   const {postsReducer,commentsReducer}=state 
+return { 
+  post: postsReducer.posts.filter(post => post.id === ownProps.match.params.id && !post.deleted)[0], 
+  posts:postsReducer.posts.filter(post => !post.deleted), } }
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
