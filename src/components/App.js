@@ -32,11 +32,11 @@ render(){
                          {/* <Route  exact path ='/:category' component={PostsList} />
                         <Route   exact path ='/:category/:id' component={PostDetail} />  */}
                          <Route  exact path ='/category/:category' component={PostsList} />
-                      <Route  exact path ='/category/:category/:id' component={PostDetail} /> 
+                      <Route   path ='/category/:category/:id' component={PostDetail} /> 
 
-                        <Route exact  component={PageNotFound} />
+                        <Route   component={PageNotFound} />
                         
-                        <Route exact path='/404'  component={PageNotFound} />
+                         <Route  path='/404'  component={PageNotFound} /> 
                     </Switch>
 
                 </div>

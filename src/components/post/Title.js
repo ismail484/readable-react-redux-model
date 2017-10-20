@@ -13,7 +13,7 @@ export class Title extends Component {
     )
   }
 }
-{`category/${category}/${id}`}
+
 
 Title.PropTypes = {
   id: PropTypes.string.isRequired,
