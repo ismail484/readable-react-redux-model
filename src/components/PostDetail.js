@@ -14,26 +14,29 @@ class PostDetail extends Component {
     bodyComment: ''
   }
 
-// componentDidMount() {
-//     const { id } = this.props.match.params
-//     this.props.getPost(id)
+
+ // const { id } = this.props.match.params
+    // this.props.getPost(id)
 //     this.props.getPosts()
     
 //   }
 
 
-componentDidUpdate() {
+// componentDidUpdate() {
 
-if(this.props.posts.length > 0 && !this.props.post ) { 
-  this.props.history.push('/404') 
-  console.log('post is', this.props.post) }
+// if(this.props.posts.length > 0 && !this.props.post ) { 
+//   this.props.history.push('/404') 
+//   console.log('post is', this.props.post) }
 
-}
+// }
 
    componentDidMount() {
+     if(this.props.post===undefined){
+    this.props.history.push('/404') 
+  }
     const { id } = this.props.match.params
     this.props.getPost(id)
-    //this.props.getPosts()
+    this.props.getPosts()
   } 
 
   onInputChange = (e) => {
