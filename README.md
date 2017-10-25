@@ -42,7 +42,7 @@
    - React Text Input `npm i react-text-input`
    - React upvote `npm install react-vote --save`
 
-# How to Run Projectot 
+# How to Run Project 
    1.  Download all Project files
    2.  Run `yarn install` [yarn](https://yarnpkg.com/en/) is preferred package for ReactJs or `npm install` to install all required dependancies &packages .
    3.  Run `yarn start`  or `npm start` 
