@@ -26,17 +26,13 @@ render(){
                <HeaderNavContainer/>  
                     
                     <Switch>
-                        <Route exact path='/' component={Posts} /> 
-                        <Route exact  path='/posts' component={Posts} />
-                         <Route exact path='/about' component={About} />
-                         {/* <Route  exact path ='/:category' component={PostsList} />
-                        <Route   exact path ='/:category/:id' component={PostDetail} />  */}
-                         <Route  exact path ='/category/:category' component={PostsList} />
-                      <Route   path ='/category/:category/:id' component={PostDetail} /> 
-
-                        <Route   component={PageNotFound} />
-                        
-                         <Route  path='/404'  component={PageNotFound} /> 
+                        <Route exact path="/" component={Home} />
+                         <Route path="/about" component={About} />
+                        <Route path="/posts" component={Posts} />
+                        <Route exact path ='/:category' component={PostsList} />
+                        <Route exact path ='/:category/:id' component={PostDetail} />
+                         <Route  component={PageNotFound} />
+                          <Route  path='/404'  component={PageNotFound} /> 
                     </Switch>
 
                 </div>
@@ -48,6 +44,7 @@ render(){
 }
 
 
-                   
+
+
 
 export default App

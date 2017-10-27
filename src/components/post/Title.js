@@ -8,12 +8,11 @@ export class Title extends Component {
     const { id, title, category } = this.props.post
     return(
       <div className="Title">
-        <Link to={`category/${category}/${id}`}>{title}</Link>
+        <Link to={`${category}/${id}`}>{title}</Link>
       </div>
     )
   }
 }
-
 
 Title.PropTypes = {
   id: PropTypes.string.isRequired,

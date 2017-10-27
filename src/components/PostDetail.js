@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getPost,getPosts } from '../action/postsAction'
+import { getPost } from '../action/postsAction'
 import { addComment } from '../action/commentsAction'
 import { Link } from 'react-router-dom'
 import uuidv1 from 'uuid/v1'
@@ -13,31 +13,14 @@ class PostDetail extends Component {
   state = {
     bodyComment: ''
   }
-
-
- // const { id } = this.props.match.params
-    // this.props.getPost(id)
-//     this.props.getPosts()
-    
-//   }
-
-
-// componentDidUpdate() {
-
-// if(this.props.posts.length > 0 && !this.props.post ) { 
-//   this.props.history.push('/404') 
-//   console.log('post is', this.props.post) }
-
-// }
-
-   componentDidMount() {
-     if(this.props.post===undefined){
+  componentDidMount() {
+ if(!this.props.post){
     this.props.history.push('/404') 
   }
+
     const { id } = this.props.match.params
     this.props.getPost(id)
-    this.props.getPosts()
-  } 
+  }
 
   onInputChange = (e) => {
     this.setState({
@@ -67,8 +50,8 @@ class PostDetail extends Component {
   }//end of onCommentSubmit
 
   render() {
-console.log('post is',this.props.post)
-       
+
+       console.log('post is',this.props.post)
     const { id } = this.props.match.params
     const { post } = this.props
         
@@ -89,18 +72,20 @@ console.log('post is',this.props.post)
   }
 }
 
-const mapStateToProps = (state,ownProps) => {
-    const {postsReducer,commentsReducer}=state
+const mapStateToProps = (state) => {
+    const {postsReducer}=state
   return {
-    post: postsReducer.posts.filter(post => post.id === ownProps.match.params.id && !post.deleted)[0], 
-  posts:postsReducer.posts.filter(post => !post.deleted), } }
+    post: postsReducer.post,
+  // post: postsReducer.posts.filter(post => post.id === ownProps.match.params.id && !post.deleted)[0], 
+  // posts:postsReducer.posts.filter(post => !post.deleted) 
+   
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getPost: (id) => dispatch(getPost(id)),
-    addComment:(comment)=>dispatch(addComment(comment)),
-    getPosts: () => dispatch(getPosts()),
-    
+    addComment:(comment)=>dispatch(addComment(comment))
   }
 }
 
