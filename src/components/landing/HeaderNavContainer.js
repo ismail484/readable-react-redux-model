@@ -14,9 +14,9 @@ export const HeaderNavContainer = () => {
 
                 <div className="collapse navbar-collapse" id="mainNav">
                     <div className="navbar-nav">
-                        <NavLink className="nav-item nav-link" exact activeClassName="active" to="/">Home</NavLink>
                         <NavLink className="nav-item nav-link" activeClassName="active" to="/posts" >Posts</NavLink>
                         <NavLink className="nav-item nav-link" activeClassName="active" to="/about">About</NavLink>
+                          <NavLink className="nav-item nav-link" exact activeClassName="active" to="/home">Home</NavLink>
 
                         
                     </div>

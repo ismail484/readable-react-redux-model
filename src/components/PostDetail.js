@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getPost } from '../action/postsAction'
 import { addComment } from '../action/commentsAction'
-import { Link } from 'react-router-dom'
+import { Link,Redirect } from 'react-router-dom'
 import uuidv1 from 'uuid/v1'
 import '../../public/App.css'
 import PostInfo from './PostInfo'
@@ -14,26 +14,16 @@ class PostDetail extends Component {
     bodyComment: ''
   }
   componentDidMount() {
- 
-
     const { id } = this.props.match.params
-     
-   
     this.props.getPost(id)
-
-
-   if(!this.props.post.id ){
-    this.props.history.push('/404') 
-
   }
 
-// if(typeof this.props.post.id =='undefined'){
-//     this.props.history.push('/404') 
-    
-//   }
-
+componentDidUpdate(){
+    //console.log("post in postDetail", this.props.post)
+     if (!this.props.post.id ){
+      this.props.history.push('/404')
+    }
   }
-
   onInputChange = (e) => {
     this.setState({
       bodyComment: e.target.value
