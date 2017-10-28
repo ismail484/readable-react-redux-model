@@ -14,12 +14,24 @@ class PostDetail extends Component {
     bodyComment: ''
   }
   componentDidMount() {
- if(!this.props.post){
-    this.props.history.push('/404') 
-  }
+ 
 
     const { id } = this.props.match.params
+     
+   
     this.props.getPost(id)
+
+
+   if(!this.props.post.id ){
+    this.props.history.push('/404') 
+
+  }
+
+// if(typeof this.props.post.id =='undefined'){
+//     this.props.history.push('/404') 
+    
+//   }
+
   }
 
   onInputChange = (e) => {
@@ -50,10 +62,13 @@ class PostDetail extends Component {
   }//end of onCommentSubmit
 
   render() {
+      
+
 
        console.log('post is',this.props.post)
     const { id } = this.props.match.params
     const { post } = this.props
+    
         
     return(
       <div className="PostDetail">
